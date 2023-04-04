@@ -53,6 +53,8 @@ class Register : AppCompatActivity() {
 
                         Toast.makeText(baseContext, "Account created.",
                             Toast.LENGTH_SHORT).show()
+
+                        startLoginPage()
                     } else {
                         // If sign in fails, display a message to the user.
                         Log.w(TAG, "createUserWithEmail:failure", task.exception)
@@ -63,10 +65,14 @@ class Register : AppCompatActivity() {
         }
 
         binding.loginNow.setOnClickListener {
-            val intent = Intent(this, Login::class.java);
-            startActivity(intent);
-            finish();
+            startLoginPage()
         }
+    }
+
+    private fun startLoginPage() {
+        val intent = Intent(this, Login::class.java);
+        startActivity(intent);
+        finish();
     }
 
 }
