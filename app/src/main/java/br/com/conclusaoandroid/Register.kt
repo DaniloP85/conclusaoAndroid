@@ -41,6 +41,7 @@ class Register : AppCompatActivity() {
             val password = binding.passwordRegister.text.toString();
 
             if (email.isEmpty() || password.isEmpty()) {
+                binding.progressBarRegister.visibility = View.GONE;
                 Toast.makeText(this, getString(R.string.register_validate), Toast.LENGTH_SHORT).show();
                 return@setOnClickListener;
             }
@@ -59,6 +60,7 @@ class Register : AppCompatActivity() {
 
                         startLoginPage()
                     } else {
+                        binding.progressBarRegister.visibility = View.GONE;
                         // If sign in fails, display a message to the user.
                         Log.w(TAG, "createUserWithEmail:failure", task.exception)
                         Toast.makeText(baseContext, "Authentication failed.",

@@ -52,6 +52,7 @@ class Login : AppCompatActivity() {
             val password = binding.password.text.toString();
 
             if (email.isEmpty() || password.isEmpty()) {
+                binding.progressBarLogin.visibility = View.GONE;
                 Toast.makeText(this, getString(R.string.login_validate_fields), Toast.LENGTH_SHORT).show();
                 return@setOnClickListener;
             }
@@ -68,6 +69,7 @@ class Login : AppCompatActivity() {
                         startMainPage()
 
                     } else {
+                        binding.progressBarLogin.visibility = View.GONE;
                         // If sign in fails, display a message to the user.
                         Log.w(TAG, "signInWithEmail:failure", task.exception)
                         Toast.makeText(baseContext, "Authentication failed.",
