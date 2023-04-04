@@ -1,6 +1,7 @@
 package br.com.conclusaoandroid
 
 import android.content.Intent
+import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ImageView
@@ -17,6 +18,8 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        window.statusBarColor = Color.parseColor("#0075FF")
 
         binding = ActivityMainBinding.inflate(layoutInflater);
 

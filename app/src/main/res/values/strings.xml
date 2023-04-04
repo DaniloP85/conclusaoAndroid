@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Compras de Supermercado</string>
+    <string name="app_name">Supermarket Shopping</string>
     <string name="login">Login</string>
     <string name="email">Email</string>
     <string name="password">Password</string>
@@ -8,4 +8,5 @@
     <string name="click_to_login">Click to Login</string>
     <string name="click_to_register">Click to Register</string>
     <string name="login_validate_fields">Email and/or Password are empty</string>
+    <string name="add_new">Add new</string>
 </resources>

@@ -10,8 +10,22 @@
     tools:context=".Login">
 
     <TextView
+        android:text="@string/app_name"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:src="@drawable/ic_baseline_shopping_cart_24"
+        android:layout_marginBottom="50dp" />
+
+    <TextView
         android:text="@string/login"
-        android:textSize="25sp"
+        android:textSize="18sp"
         android:textStyle="bold"
         android:gravity="center"
         android:layout_marginBottom="20sp"
@@ -48,18 +62,22 @@
 
     <Button
         android:id="@+id/btnLogin"
-        android:text="@string/login"
         android:layout_marginTop="10sp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_width="250dp"
+        android:layout_height="60dp"
+        android:background="@drawable/custom_button"
+        android:text="@string/login"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:textColor="@color/white"/>
 
     <TextView
         android:id="@+id/registerNow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
         android:text="@string/click_to_register"
         android:textStyle="bold"
         android:textSize="20sp"
-        android:gravity="center"
-        android:layout_marginTop="20dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:gravity="center"/>
 </LinearLayout>

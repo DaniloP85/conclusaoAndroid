@@ -2,6 +2,7 @@ package br.com.conclusaoandroid
 
 import android.content.ContentValues.TAG
 import android.content.Intent
+import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -18,6 +19,8 @@ class Login : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater);
+
+        window.statusBarColor = Color.parseColor("#0075FF")
 
         val view = binding.root
         setContentView(view)
