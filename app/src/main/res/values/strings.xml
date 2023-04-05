@@ -9,4 +9,7 @@
     <string name="click_to_register">Click to Register</string>
     <string name="login_validate_fields">Email and/or Password are empty</string>
     <string name="add_new">Add new</string>
+    <string name="email_validate">Please enter a valid email</string>
+    <string name="account_created">Account created :)</string>
+    <string name="account_created_error">Something went wrong :(</string>
 </resources>

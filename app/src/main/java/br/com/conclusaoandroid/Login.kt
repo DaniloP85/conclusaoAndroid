@@ -7,7 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.Toast
+import br.com.conclusaoandroid.common.Utils
 import br.com.conclusaoandroid.databinding.ActivityLoginBinding
 import com.google.firebase.auth.FirebaseAuth
 
@@ -16,7 +16,7 @@ import com.example.mobcompoents.cusomtoast.CustomToast
 class Login : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding;
 
-    lateinit var auth: FirebaseAuth;
+    private lateinit var auth: FirebaseAuth;
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,7 +55,12 @@ class Login : AppCompatActivity() {
 
             if (email.isEmpty() || password.isEmpty()) {
                 binding.progressBarLogin.visibility = View.GONE;
-                Toast.makeText(this, getString(R.string.login_validate_fields), Toast.LENGTH_SHORT).show();
+                CustomToast.warning( this, getString(R.string.login_validate_fields) )
+                return@setOnClickListener;
+            }
+
+            if(!Utils.emailValidator(email)) {
+                CustomToast.error( this, getString(R.string.email_validate) )
                 return@setOnClickListener;
             }
 
@@ -64,9 +69,7 @@ class Login : AppCompatActivity() {
                     if (task.isSuccessful) {
                         // Sign in success, update UI with the signed-in user's information
                         Log.d(TAG, "signInWithEmail:success")
-
                         CustomToast.success( this, "Successful Authentication :)" )
-
                         startMainPage()
 
                     } else {
