@@ -60,6 +60,7 @@ class Login : AppCompatActivity() {
             }
 
             if(!Utils.emailValidator(email)) {
+                binding.progressBarLogin.visibility = View.GONE;
                 CustomToast.error( this, getString(R.string.email_validate) )
                 return@setOnClickListener;
             }
