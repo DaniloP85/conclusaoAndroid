@@ -11,6 +11,8 @@ import android.widget.Toast
 import br.com.conclusaoandroid.databinding.ActivityLoginBinding
 import com.google.firebase.auth.FirebaseAuth
 
+import com.example.mobcompoents.cusomtoast.CustomToast
+
 class Login : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding;
 
@@ -63,8 +65,7 @@ class Login : AppCompatActivity() {
                         // Sign in success, update UI with the signed-in user's information
                         Log.d(TAG, "signInWithEmail:success")
 
-                        Toast.makeText(baseContext, "Successful Authentication.",
-                            Toast.LENGTH_SHORT).show()
+                        CustomToast.success( this, "Successful Authentication :)" )
 
                         startMainPage()
 
@@ -72,8 +73,7 @@ class Login : AppCompatActivity() {
                         binding.progressBarLogin.visibility = View.GONE;
                         // If sign in fails, display a message to the user.
                         Log.w(TAG, "signInWithEmail:failure", task.exception)
-                        Toast.makeText(baseContext, "Authentication failed.",
-                            Toast.LENGTH_SHORT).show()
+                        CustomToast.error(this, "Authentication failed :(")
                     }
                 }
         }

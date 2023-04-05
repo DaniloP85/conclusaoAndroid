@@ -7,13 +7,11 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.Button
-import android.widget.ProgressBar
-import android.widget.TextView
 import android.widget.Toast
 import br.com.conclusaoandroid.databinding.ActivityRegisterBinding
-import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.auth.FirebaseAuth
+
+import com.example.mobcompoents.cusomtoast.CustomToast
 
 class Register : AppCompatActivity() {
     private lateinit var binding: ActivityRegisterBinding;
@@ -55,16 +53,15 @@ class Register : AppCompatActivity() {
                         Log.d(TAG, "createUserWithEmail:success")
                         //val user = auth.currentUser
 
-                        Toast.makeText(baseContext, "Account created.",
-                            Toast.LENGTH_SHORT).show()
+                        CustomToast.success( this, "Account created :)" )
 
                         startLoginPage()
                     } else {
                         binding.progressBarRegister.visibility = View.GONE;
                         // If sign in fails, display a message to the user.
                         Log.w(TAG, "createUserWithEmail:failure", task.exception)
-                        Toast.makeText(baseContext, "Authentication failed.",
-                            Toast.LENGTH_SHORT).show()
+
+                        CustomToast.error(this, "Something went wrong :(")
                     }
                 }
         }
