@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "555405866225",
+    "project_id": "android-fiap-conclusion",
+    "storage_bucket": "android-fiap-conclusion.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:555405866225:android:ee7da1524422c5184e6550",
+        "android_client_info": {
+          "package_name": "br.com.conclusaoandroid"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "555405866225-e3kom5ll6l0ua9nujq1eo48e91stn06i.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDp3JL0xFjvve5UQnFPR7DNccKKKFawQ-c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "555405866225-e3kom5ll6l0ua9nujq1eo48e91stn06i.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
