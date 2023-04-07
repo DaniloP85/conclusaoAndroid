@@ -12,4 +12,5 @@
     <string name="email_validate">Please enter a valid email</string>
     <string name="account_created">Account created :)</string>
     <string name="account_created_error">Something went wrong :(</string>
+    <string name="no_products">no products</string>
 </resources>
