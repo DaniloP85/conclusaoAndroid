@@ -45,6 +45,7 @@ class Register : AppCompatActivity() {
             }
 
             if(!Utils.emailValidator(email)) {
+                binding.progressBarRegister.visibility = View.GONE;
                 CustomToast.error( this, getString(R.string.email_validate) )
                 return@setOnClickListener;
             }
