@@ -39,7 +39,7 @@ Certifique-se de que seu dispositivo tenha a versão Android >= 21.
 ```
 
 ## Tela A
-
+![.](readme/android.gif)
 ## Tela B
 
 
