@@ -1,6 +1,7 @@
 package br.com.conclusaoandroid.model
 
 import com.google.firebase.firestore.IgnoreExtraProperties
+import java.security.Timestamp
 
 @IgnoreExtraProperties
 data class Shopping (

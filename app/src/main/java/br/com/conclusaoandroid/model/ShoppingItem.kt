@@ -5,7 +5,7 @@ import com.google.firebase.firestore.IgnoreExtraProperties
 @IgnoreExtraProperties
 data class ShoppingItem(
     val description: String? = null,
-    val value: String? = null,
+    val value: Double? = null,
 ){
 
     companion object {
