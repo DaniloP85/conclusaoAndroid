@@ -3,11 +3,12 @@ package br.com.conclusaoandroid.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import br.com.conclusaoandroid.model.Shopping
 import br.com.conclusaoandroid.databinding.ShoppingItemBinding
+import br.com.conclusaoandroid.model.Shopping
 import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.ktx.toObject
-
+import java.text.NumberFormat
+import java.util.*
 
 open class ShoppingAdapter(query: Query) : FirestoreAdapter<ShoppingAdapter.ViewHolder>(query) {
 
@@ -18,6 +19,13 @@ open class ShoppingAdapter(query: Query) : FirestoreAdapter<ShoppingAdapter.View
             }
 
             binding.marketplace.text = shopping.marketplace
+            binding.date.text = shopping.date
+
+            val total = listOf(shopping.items?.map { x -> x.value })[0]?.reduce { acc, d -> acc?.plus(d ?: 0.0)}
+            val format: NumberFormat = NumberFormat.getCurrencyInstance()
+            format.maximumFractionDigits = 2
+            format.setCurrency(Currency.getInstance("BRL")).toString()
+            binding.value.text = format.format(total)
         }
     }
 
@@ -30,4 +38,8 @@ open class ShoppingAdapter(query: Query) : FirestoreAdapter<ShoppingAdapter.View
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(ShoppingItemBinding.inflate(LayoutInflater.from(parent.context), parent, false))
     }
+}
+
+private fun Number.plus(number: Number) {
+
 }

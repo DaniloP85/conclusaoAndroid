@@ -3,6 +3,7 @@ package br.com.conclusaoandroid
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
+import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import br.com.conclusaoandroid.adapter.ShoppingAdapter
 import br.com.conclusaoandroid.databinding.ActivityMainBinding
