@@ -13,4 +13,5 @@
     <string name="account_created">Account created :)</string>
     <string name="account_created_error">Something went wrong :(</string>
     <string name="no_products">no products</string>
+    <string name="empty_state">No items yet</string>
 </resources>
