@@ -2,24 +2,19 @@ package br.com.conclusaoandroid
 
 import android.app.AlertDialog
 import android.content.ContentValues.TAG
-import android.content.DialogInterface
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
-import android.view.ViewGroup
 import android.widget.EditText
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import br.com.conclusaoandroid.adapter.ShoppingAdapter
 import br.com.conclusaoandroid.databinding.ActivityMainBinding
 import com.example.mobcompoents.cusomtoast.CustomToast
 import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import java.util.*
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding;
@@ -49,7 +44,6 @@ class MainActivity : AppCompatActivity() {
         var shoppingQuery = Firebase.firestore
             .collection("shopping")
             .whereEqualTo("userId", auth.uid)
-            .orderBy("marketplace", Query.Direction.ASCENDING)
             .limit(50)
 
         shoppingAdapter = object : ShoppingAdapter(shoppingQuery) {
@@ -99,7 +93,7 @@ class MainActivity : AppCompatActivity() {
         val shopping = hashMapOf(
             "userId" to userId,
             "marketplace" to marketplace,
-            "date" to Timestamp(Date()),
+            "date" to Timestamp.now(),
             "items" to arrayListOf(shoppingItem)
         )
 
