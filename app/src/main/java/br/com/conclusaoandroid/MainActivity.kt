@@ -104,6 +104,7 @@ class MainActivity : AppCompatActivity() {
         Firebase.firestore.collection("shopping")
             .add(shopping)
             .addOnSuccessListener { documentReference ->
+                CustomToast.success( this, "Cadastrado com sucesso :)" )
                 Log.d(TAG, "DocumentSnapshot written with ID: ${documentReference.id}")
             }
             .addOnFailureListener { e ->
