@@ -1,5 +1,7 @@
 package br.com.conclusaoandroid.adapter
 
+import android.annotation.SuppressLint
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -14,7 +16,8 @@ import java.util.*
 open class ShoppingAdapter(query: Query) : FirestoreAdapter<ShoppingAdapter.ViewHolder>(query) {
 
     class ViewHolder(val binding: ShoppingItemBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(shopping: Shopping) {
+        @SuppressLint("LongLogTag")
+        fun bind(shopping: Shopping, snapshotId: String) {
             if (shopping == null) {
                 return
             }
@@ -32,20 +35,31 @@ open class ShoppingAdapter(query: Query) : FirestoreAdapter<ShoppingAdapter.View
             format.maximumFractionDigits = 2
             format.setCurrency(Currency.getInstance("BRL")).toString()
             binding.value.text = format.format(total)
+
+            binding.removeShopping.setOnClickListener {
+                println("Bora remover")
+                Log.d(TAG, "idDocument ${snapshotId} shopping: ${shopping}")
+            }
+
+            binding.editShopping.setOnClickListener {
+                println("abrir edição")
+                Log.d(TAG, "idDocument ${snapshotId} shopping: ${shopping}")
+            }
+        }
+
+        companion object {
+            private const val TAG = "ShoppingAdapter.ViewHolder.bind"
         }
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        getSnapshot(position).toObject<Shopping>()?.let {
-            holder.bind(it)
+        val snapshot = getSnapshot(position)
+        snapshot.toObject<Shopping>()?.let {
+            holder.bind(it, snapshot.id)
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(ShoppingItemBinding.inflate(LayoutInflater.from(parent.context), parent, false))
     }
-}
-
-private fun Number.plus(number: Number) {
-
 }
