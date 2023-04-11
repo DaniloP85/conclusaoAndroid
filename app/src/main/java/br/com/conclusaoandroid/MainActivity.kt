@@ -16,6 +16,7 @@ import br.com.conclusaoandroid.databinding.ActivityMainBinding
 import com.example.mobcompoents.cusomtoast.CustomToast
 import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import java.util.*
@@ -48,13 +49,14 @@ class MainActivity : AppCompatActivity() {
         var shoppingQuery = Firebase.firestore
             .collection("shopping")
             .whereEqualTo("userId", auth.uid)
+            .orderBy("marketplace", Query.Direction.ASCENDING)
             .limit(50)
 
         shoppingAdapter = object : ShoppingAdapter(shoppingQuery) {
             override fun onDataChanged() {
                 if (itemCount == 0) {
                     println("vazio")
-                    //TODO: colocar uma tela vazia ou somente mostrar um texto vaizo
+                    //TODO: colocar uma tela vazia ou somente mostrar um texto vazia
                 } else {
                     binding.recyclerShopping.adapter = shoppingAdapter
                 }
