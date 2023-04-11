@@ -1,7 +1,6 @@
 package br.com.conclusaoandroid
 
 import android.app.AlertDialog
-import android.content.ContentValues.TAG
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
@@ -48,7 +47,7 @@ class MainActivity : AppCompatActivity() {
             .limit(50)
 
         shoppingAdapter = object : ShoppingAdapter(shoppingQuery) {
-            override fun onDataChanged() {
+            override fun onDataChanged() {1
                 if (itemCount == 0) {
                     binding.rltHome.visibility = View.GONE
                     binding.rltEmptyState.visibility = View.VISIBLE
@@ -100,14 +99,16 @@ class MainActivity : AppCompatActivity() {
             "items" to arrayListOf(shoppingItem)
         )
 
-        Firebase.firestore.collection("shopping")
+        Firebase
+            .firestore
+            .collection("shopping")
             .add(shopping)
             .addOnSuccessListener { documentReference ->
                 CustomToast.success( this, "Cadastrado com sucesso :)" )
                 Log.d(TAG, "DocumentSnapshot written with ID: ${documentReference.id}")
             }
             .addOnFailureListener { e ->
-                Log.w(TAG, "Error adding document", e)
+                Log.e(TAG, "Error adding document", e)
             }
     }
 
@@ -125,5 +126,9 @@ class MainActivity : AppCompatActivity() {
     public override fun onStop() {
         super.onStop()
         shoppingAdapter.stopListening()
+    }
+    companion object {
+
+        private const val TAG = "MainActivity"
     }
 }

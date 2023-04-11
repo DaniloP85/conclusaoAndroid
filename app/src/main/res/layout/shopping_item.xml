@@ -63,12 +63,14 @@
                     <ImageButton
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:id="@+id/editShopping"
                         android:src="@drawable/ic_baseline_edit_24"
                         android:backgroundTint="@color/white" />
 
                     <ImageButton
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:id="@+id/removeShopping"
                         android:src="@drawable/ic_baseline_delete_24"
                         android:backgroundTint="@color/white" />
                 </LinearLayout>
