@@ -19,7 +19,8 @@ open class ShoppingAdapter(query: Query) : FirestoreAdapter<ShoppingAdapter.View
             }
 
             binding.marketplace.text = shopping.marketplace
-            binding.date.text = shopping.date
+            val date = shopping.date?.toDate().toString()
+            binding.date.text = date
 
             val total = listOf(shopping.items?.map { x -> x.value })[0]?.reduce { acc, d -> acc?.plus(d ?: 0.0)}
             val format: NumberFormat = NumberFormat.getCurrencyInstance()

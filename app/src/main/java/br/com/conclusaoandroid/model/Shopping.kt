@@ -1,11 +1,11 @@
 package br.com.conclusaoandroid.model
 
+import com.google.firebase.Timestamp
 import com.google.firebase.firestore.IgnoreExtraProperties
-import java.security.Timestamp
 
 @IgnoreExtraProperties
 data class Shopping (
-    var date:  String? = null,
+    var date:  Timestamp? = null,
     var marketplace:  String? = null,
     var items:  List<ShoppingItem>? = null
 ){
