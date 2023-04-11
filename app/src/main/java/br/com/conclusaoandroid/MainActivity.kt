@@ -5,6 +5,7 @@ import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
 import br.com.conclusaoandroid.adapter.ShoppingAdapter
@@ -48,9 +49,11 @@ class MainActivity : AppCompatActivity() {
         shoppingAdapter = object : ShoppingAdapter(shoppingQuery) {
             override fun onDataChanged() {1
                 if (itemCount == 0) {
-                    println("vazio")
-                    //TODO: colocar uma tela vazia ou somente mostrar um texto vazia
+                    binding.rltHome.visibility = View.GONE
+                    binding.rltEmptyState.visibility = View.VISIBLE
                 } else {
+                    binding.rltHome.visibility = View.VISIBLE
+                    binding.rltEmptyState.visibility = View.GONE
                     binding.recyclerShopping.adapter = shoppingAdapter
                 }
             }
