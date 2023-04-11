@@ -19,6 +19,7 @@ open class ShoppingAdapter(query: Query) : FirestoreAdapter<ShoppingAdapter.View
             }
 
             binding.marketplace.text = shopping.marketplace
+            //TODO: Fazer a formatação da data
             val date = shopping.date?.toDate().toString()
             binding.date.text = date
 

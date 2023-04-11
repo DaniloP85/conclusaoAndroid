@@ -65,23 +65,21 @@ class Login : AppCompatActivity() {
                 return@setOnClickListener;
             }
 
-            auth.signInWithEmailAndPassword(email, password)
-                .addOnCompleteListener(this) { task ->
-                    if (task.isSuccessful) {
-                        // Sign in success, update UI with the signed-in user's information
-                        Log.d(TAG, "signInWithEmail:success")
-                        CustomToast.success( this, "Successful Authentication :)" )
-                        startMainPage()
+            auth.signInWithEmailAndPassword(email, password).addOnCompleteListener(this) { task ->
+                if (task.isSuccessful) {
+                    // Sign in success, update UI with the signed-in user's information
+                    Log.d(TAG, "signInWithEmail:success")
+                    CustomToast.success( this, "Successful Authentication :)" )
+                    startMainPage()
 
-                    } else {
-                        binding.progressBarLogin.visibility = View.GONE;
-                        // If sign in fails, display a message to the user.
-                        Log.w(TAG, "signInWithEmail:failure", task.exception)
-                        CustomToast.error(this, "Authentication failed :(")
-                    }
+                } else {
+                    binding.progressBarLogin.visibility = View.GONE;
+                    // If sign in fails, display a message to the user.
+                    Log.w(TAG, "signInWithEmail:failure", task.exception)
+                    CustomToast.error(this, "Authentication failed :(")
                 }
+            }
         }
-
     }
 
     private fun startMainPage() {
@@ -89,5 +87,4 @@ class Login : AppCompatActivity() {
         startActivity(intent);
         finish();
     }
-
 }
