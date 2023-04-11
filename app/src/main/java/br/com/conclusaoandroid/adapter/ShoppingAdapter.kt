@@ -15,10 +15,6 @@ open class ShoppingAdapter(query: Query) : FirestoreAdapter<ShoppingAdapter.View
 
     class ViewHolder(val binding: ShoppingItemBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(shopping: Shopping) {
-            if (shopping == null) {
-                return
-            }
-
             binding.marketplace.text = shopping.marketplace
 
             var pattern = "dd/MM/yyyy";
@@ -44,8 +40,4 @@ open class ShoppingAdapter(query: Query) : FirestoreAdapter<ShoppingAdapter.View
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(ShoppingItemBinding.inflate(LayoutInflater.from(parent.context), parent, false))
     }
-}
-
-private fun Number.plus(number: Number) {
-
 }
