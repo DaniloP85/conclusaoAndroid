@@ -8,7 +8,9 @@ import androidx.recyclerview.widget.RecyclerView
 import br.com.conclusaoandroid.databinding.ShoppingItemBinding
 import br.com.conclusaoandroid.model.Shopping
 import com.google.firebase.firestore.Query
+import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
+import com.google.firebase.ktx.Firebase
 import java.text.NumberFormat
 import java.text.SimpleDateFormat
 import java.util.*
@@ -37,14 +39,26 @@ open class ShoppingAdapter(query: Query) : FirestoreAdapter<ShoppingAdapter.View
             binding.value.text = format.format(total)
 
             binding.removeShopping.setOnClickListener {
-                println("Bora remover")
-                Log.d(TAG, "idDocument ${snapshotId} shopping: ${shopping}")
+                removeShopping(shopping, snapshotId)
             }
 
             binding.editShopping.setOnClickListener {
                 println("abrir edição")
                 Log.d(TAG, "idDocument ${snapshotId} shopping: ${shopping}")
             }
+        }
+
+        @SuppressLint("LongLogTag")
+        private fun removeShopping(shopping: Shopping, snapshotId: String){
+
+            Firebase
+                .firestore
+                .collection("shopping")
+                .document(snapshotId)
+                .update("userId", "${shopping.userId}_99999")
+                .addOnSuccessListener {
+                    Log.d(TAG, "DocumentSnapshot successfully updated!")
+                }.addOnFailureListener { e -> Log.w(TAG, "Error updating document", e) }
         }
 
         companion object {

@@ -1,7 +1,6 @@
 package br.com.conclusaoandroid
 
 import android.app.AlertDialog
-import android.content.ContentValues.TAG
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
