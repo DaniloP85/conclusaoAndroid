@@ -1,10 +1,14 @@
 package br.com.conclusaoandroid.adapter
 
 import android.annotation.SuppressLint
+import android.content.Context
+import android.content.Intent
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
+import br.com.conclusaoandroid.Login
 import br.com.conclusaoandroid.databinding.ShoppingItemBinding
 import br.com.conclusaoandroid.model.Shopping
 import com.google.firebase.firestore.Query
@@ -15,14 +19,26 @@ import java.text.NumberFormat
 import java.text.SimpleDateFormat
 import java.util.*
 
-open class ShoppingAdapter(query: Query) : FirestoreAdapter<ShoppingAdapter.ViewHolder>(query) {
+open class ShoppingAdapter(query: Query, private val onClick: (Shopping) -> Unit) : FirestoreAdapter<ShoppingAdapter.ViewHolder>(query) {
 
-    class ViewHolder(val binding: ShoppingItemBinding) : RecyclerView.ViewHolder(binding.root) {
+    class ViewHolder(val binding: ShoppingItemBinding, val onClick: (Shopping) -> Unit) : RecyclerView.ViewHolder(binding.root) {
+
+        private var currentShopping: Shopping? = null
+
+        init {
+            itemView.setOnClickListener {
+                currentShopping?.let {
+                    onClick(it)
+                }
+            }
+        }
+
         @SuppressLint("LongLogTag")
         fun bind(shopping: Shopping, snapshotId: String) {
             if (shopping == null) {
                 return
             }
+            currentShopping = shopping
 
             binding.marketplace.text = shopping.marketplace
 
@@ -74,6 +90,7 @@ open class ShoppingAdapter(query: Query) : FirestoreAdapter<ShoppingAdapter.View
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return ViewHolder(ShoppingItemBinding.inflate(LayoutInflater.from(parent.context), parent, false))
+        val view = ShoppingItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return ViewHolder(view, onClick)
     }
 }

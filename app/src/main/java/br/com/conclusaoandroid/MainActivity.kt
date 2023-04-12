@@ -8,8 +8,10 @@ import android.util.Log
 import android.view.View
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
 import br.com.conclusaoandroid.adapter.ShoppingAdapter
 import br.com.conclusaoandroid.databinding.ActivityMainBinding
+import br.com.conclusaoandroid.model.Shopping
 import com.example.mobcompoents.cusomtoast.CustomToast
 import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
@@ -46,8 +48,10 @@ class MainActivity : AppCompatActivity() {
             .whereEqualTo("userId", auth.uid)
             .limit(50)
 
-        shoppingAdapter = object : ShoppingAdapter(shoppingQuery) {
-            override fun onDataChanged() {1
+
+
+        shoppingAdapter = object : ShoppingAdapter(shoppingQuery, { shopping -> adapterOnClick(shopping) }) {
+            override fun onDataChanged() {
                 if (itemCount == 0) {
                     binding.rltHome.visibility = View.GONE
                     binding.rltEmptyState.visibility = View.VISIBLE
@@ -60,6 +64,13 @@ class MainActivity : AppCompatActivity() {
         }
 
         setupListener(auth.uid.toString())
+    }
+
+    private fun adapterOnClick(shopping: Shopping) {
+        println("ID:: ${shopping.marketplace}")
+        val intent = Intent(this, AddEditListShopping()::class.java)
+        startActivity(intent)
+        finish()
     }
 
     private fun setupListener(userId:String) {
