@@ -39,6 +39,7 @@ open class ShoppingAdapter(query: Query, private val onClick: (Shopping) -> Unit
                 return
             }
             currentShopping = shopping
+            currentShopping?.documentId = snapshotId
 
             binding.marketplace.text = shopping.marketplace
 
@@ -56,11 +57,6 @@ open class ShoppingAdapter(query: Query, private val onClick: (Shopping) -> Unit
 
             binding.removeShopping.setOnClickListener {
                 removeShopping(shopping, snapshotId)
-            }
-
-            binding.editShopping.setOnClickListener {
-                println("abrir edição")
-                Log.d(TAG, "idDocument ${snapshotId} shopping: ${shopping}")
             }
         }
 

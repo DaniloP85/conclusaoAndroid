@@ -8,7 +8,6 @@ import android.util.Log
 import android.view.View
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.LinearLayoutManager
 import br.com.conclusaoandroid.adapter.ShoppingAdapter
 import br.com.conclusaoandroid.databinding.ActivityMainBinding
 import br.com.conclusaoandroid.model.Shopping
@@ -48,8 +47,6 @@ class MainActivity : AppCompatActivity() {
             .whereEqualTo("userId", auth.uid)
             .limit(50)
 
-
-
         shoppingAdapter = object : ShoppingAdapter(shoppingQuery, { shopping -> adapterOnClick(shopping) }) {
             override fun onDataChanged() {
                 if (itemCount == 0) {
@@ -67,8 +64,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun adapterOnClick(shopping: Shopping) {
-        println("ID:: ${shopping.marketplace}")
-        val intent = Intent(this, AddEditListShopping()::class.java)
+        val intent = Intent(this, AddEditListShopping::class.java)
+        intent.putExtra("shopping", "${shopping}")
         startActivity(intent)
         finish()
     }

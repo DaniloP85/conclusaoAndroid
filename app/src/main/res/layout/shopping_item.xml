@@ -24,6 +24,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="TextView"
+                    android:layout_marginLeft="10dp"
                     android:textSize="30sp" />
 
                 <TextView
@@ -60,12 +61,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
-                    <ImageButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/editShopping"
-                        android:src="@drawable/ic_baseline_edit_24"
-                        android:backgroundTint="@color/white" />
 
                     <ImageButton
                         android:layout_width="wrap_content"

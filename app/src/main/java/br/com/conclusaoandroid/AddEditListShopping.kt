@@ -1,6 +1,7 @@
 package br.com.conclusaoandroid
 
 import android.app.ActionBar
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 
@@ -9,7 +10,8 @@ class AddEditListShopping : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_edit_list_shopping)
 
-        var actionBar = getActionBar();
-        actionBar?.setDisplayHomeAsUpEnabled(true);
+        val bundle: Bundle? = intent.extras
+        val string = bundle?.get("shopping")
+        println("Chegou ${string}")
     }
 }
