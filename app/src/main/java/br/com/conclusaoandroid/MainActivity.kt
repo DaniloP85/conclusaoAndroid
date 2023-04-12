@@ -65,7 +65,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun adapterOnClick(shopping: Shopping) {
         val intent = Intent(this, AddEditListShopping::class.java)
-        intent.putExtra("shopping", "${shopping}")
+        intent.putExtra("documentId", "${shopping.documentId}")
         startActivity(intent)
         finish()
     }
