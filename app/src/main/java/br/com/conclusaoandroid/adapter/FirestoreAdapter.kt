@@ -4,9 +4,7 @@ import android.util.Log
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.firestore.*
 
-abstract class FirestoreAdapter<VH : RecyclerView.ViewHolder>(private var query: Query?) :
-    RecyclerView.Adapter<VH>(),
-    EventListener<QuerySnapshot> {
+abstract class FirestoreAdapter<VH : RecyclerView.ViewHolder>(private var query: Query?) : RecyclerView.Adapter<VH>(), EventListener<QuerySnapshot> {
 
     private var registration: ListenerRegistration? = null
 
