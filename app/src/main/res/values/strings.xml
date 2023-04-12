@@ -13,4 +13,7 @@
     <string name="account_created">Account created :)</string>
     <string name="account_created_error">Something went wrong :(</string>
     <string name="no_products">no products</string>
+    <string name="supermarket">Supermarket</string>
+    <string name="add_market_success_msg">Cadastrado com sucesso :)</string>
+    <string name="add_market_error_message">Erro ao cadastrar :(</string>
 </resources>

@@ -10,16 +10,14 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="horizontal">
+        android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/nameMarketplace"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerShoppingAddEdit"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="150dp"
-            android:gravity="center"
-            android:textSize="20sp"
-            android:textStyle="bold" />
+            android:layout_height="match_parent"
+            app:layoutManager="LinearLayoutManager" />
+
     </LinearLayout>
 
 </RelativeLayout>

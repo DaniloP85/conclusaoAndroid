@@ -9,6 +9,7 @@ import android.view.View
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
 import br.com.conclusaoandroid.adapter.ShoppingAdapter
+import br.com.conclusaoandroid.databinding.ActivityAddEditListShoppingBinding
 import br.com.conclusaoandroid.databinding.ActivityMainBinding
 import br.com.conclusaoandroid.model.Shopping
 import com.example.mobcompoents.cusomtoast.CustomToast
@@ -16,6 +17,7 @@ import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import java.text.SimpleDateFormat
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding;
@@ -66,6 +68,13 @@ class MainActivity : AppCompatActivity() {
     private fun adapterOnClick(shopping: Shopping) {
         val intent = Intent(this, AddEditListShopping::class.java)
         intent.putExtra("documentId", "${shopping.documentId}")
+        intent.putExtra("marketName", "${shopping.marketplace}")
+
+        var pattern = "dd/MM/yyyy";
+        var simpleDateFormat = SimpleDateFormat(pattern);
+        var date = shopping.date?.toDate()?.let { simpleDateFormat.format(it) };
+        intent.putExtra("marketDate", "$date")
+
         startActivity(intent)
         finish()
     }
@@ -78,6 +87,7 @@ class MainActivity : AppCompatActivity() {
             builder.setTitle("Entre com o nome do mercado")
             val dialogLayout = inflater.inflate(R.layout.alert_dialog_with_edittext, null)
             val editText  = dialogLayout.findViewById<EditText>(R.id.editText)
+
             builder.setView(dialogLayout)
             builder.setPositiveButton("Add") {
                     _, _ -> if (editText.text.isNotBlank()) {
@@ -112,10 +122,11 @@ class MainActivity : AppCompatActivity() {
             .collection("shopping")
             .add(shopping)
             .addOnSuccessListener { documentReference ->
-                CustomToast.success( this, "Cadastrado com sucesso :)" )
+                CustomToast.success( this, getString(R.string.add_market_success_msg) )
                 Log.d(TAG, "DocumentSnapshot written with ID: ${documentReference.id}")
             }
             .addOnFailureListener { e ->
+                CustomToast.error(this, getString(R.string.add_market_error_message))
                 Log.e(TAG, "Error adding document", e)
             }
     }

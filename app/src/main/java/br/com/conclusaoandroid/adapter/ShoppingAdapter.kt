@@ -21,7 +21,7 @@ import java.util.*
 
 open class ShoppingAdapter(query: Query, private val onClick: (Shopping) -> Unit) : FirestoreAdapter<ShoppingAdapter.ViewHolder>(query) {
 
-    class ViewHolder(val binding: ShoppingItemBinding, val onClick: (Shopping) -> Unit) : RecyclerView.ViewHolder(binding.root) {
+    class ViewHolder(private val binding: ShoppingItemBinding, val onClick: (Shopping) -> Unit) : RecyclerView.ViewHolder(binding.root) {
 
         private var currentShopping: Shopping? = null
 
