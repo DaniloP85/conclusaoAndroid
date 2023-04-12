@@ -49,6 +49,7 @@ class MainActivity : AppCompatActivity() {
 
         shoppingAdapter = object : ShoppingAdapter(shoppingQuery, { shopping -> adapterOnClick(shopping) }) {
             override fun onDataChanged() {
+
                 if (itemCount == 0) {
                     binding.rltHome.visibility = View.GONE
                     binding.rltEmptyState.visibility = View.VISIBLE
@@ -135,6 +136,7 @@ class MainActivity : AppCompatActivity() {
         super.onStop()
         shoppingAdapter.stopListening()
     }
+
     companion object {
 
         private const val TAG = "MainActivity"

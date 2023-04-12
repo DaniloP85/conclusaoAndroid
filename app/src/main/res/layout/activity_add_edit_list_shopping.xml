@@ -22,4 +22,17 @@
             android:textStyle="bold" />
     </LinearLayout>
 
+    <RelativeLayout
+        android:id="@+id/recyclerShoppingListRelativeLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="160dp">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerShoppingList"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layoutManager="LinearLayoutManager" />
+    </RelativeLayout>
+
 </RelativeLayout>

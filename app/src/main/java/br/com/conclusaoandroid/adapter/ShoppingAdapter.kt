@@ -41,6 +41,8 @@ open class ShoppingAdapter(query: Query, private val onClick: (Shopping) -> Unit
             currentShopping = shopping
             currentShopping?.documentId = snapshotId
 
+            println("okkk.:" + currentShopping)
+
             binding.marketplace.text = shopping.marketplace
 
             var pattern = "dd/MM/yyyy";
