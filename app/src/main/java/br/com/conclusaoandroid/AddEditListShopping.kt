@@ -6,13 +6,17 @@ import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.style.ForegroundColorSpan
 import android.util.Log
+import android.view.MenuItem
 import android.widget.EditText
+import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import br.com.conclusaoandroid.adapter.ShoppingListAdapter
 import br.com.conclusaoandroid.databinding.ActivityAddEditListShoppingBinding
 import br.com.conclusaoandroid.model.Products
-import br.com.conclusaoandroid.model.Shopping
 import com.example.mobcompoents.cusomtoast.CustomToast
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
@@ -22,68 +26,91 @@ import java.util.*
 
 class AddEditListShopping : AppCompatActivity() {
 
-    private lateinit var binding: ActivityAddEditListShoppingBinding;
+    private lateinit var binding: ActivityAddEditListShoppingBinding
     private lateinit var shoppingListAdapter: ShoppingListAdapter
     private lateinit var documentId: String
+    private lateinit var marketplace: String
+    private lateinit var marketDate: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityAddEditListShoppingBinding.inflate(layoutInflater)
+
+        window.statusBarColor = Color.parseColor("#0075FF")
+
         setContentView(binding.root)
+
+        val bundle: Bundle? = intent.extras
+        documentId = bundle?.get("documentId").toString()
+        marketplace = bundle?.get("marketPlace").toString()
+        marketDate =  bundle?.get("marketDate").toString()
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setHomeButtonEnabled(true)
         supportActionBar?.setBackgroundDrawable(ColorDrawable(Color.parseColor("#0075FF")))
+        supportActionBar?.setTitleColor(Color.WHITE, "$marketplace (${marketDate})")
 
-        val bundle: Bundle? = intent.extras
-        documentId = bundle?.get("documentId").toString()
-
-        val marketplace = bundle?.get("marketplace")
         val queryShopping = Firebase.firestore
             .collection("shopping")
             .document(documentId)
             .collection("products").limit(100)
 
-        binding.nameMarketplace.text = "Local: ${marketplace}"
-
         shoppingListAdapter = object :
             ShoppingListAdapter(queryShopping, documentId, { product -> adapterOnClick(product) }) {
             override fun onDataChanged() {
                 if (itemCount == 0) {
-                    println("Zerado? ${documentId}")
+                    println("Nothing $documentId")
                     updateTotalShopping(0.0)
                     binding.valueTotal.text = "0"
                 } else {
-                    //TODO: Melhorar as variaveis
-                    var t = getAllSnapshot()
-                    var s = 0.0
-                    for (w in t) {
-                        var o = w.toObject<Products>()
-                        s += o?.value!!
+                    val allProducts = getAllSnapshot()
+
+                    var amount = 0.0
+                    for (item in allProducts) {
+                        val itemObject = item.toObject<Products>()
+                        amount += itemObject?.value!!
                     }
                     binding.recyclerShoppingList.adapter = shoppingListAdapter
                     val format: NumberFormat = NumberFormat.getCurrencyInstance()
                     format.maximumFractionDigits = 2
                     format.setCurrency(Currency.getInstance("BRL")).toString()
-                    binding.valueTotal.text = "Total: ${format.format(s)}"
+                    val total: String = getString(R.string.total)
+                    binding.valueTotal.text = "$total: ${format.format(amount)}"
 
-                    updateTotalShopping(s)
+                    updateTotalShopping(amount)
                 }
             }
         }
 
         binding.addProduct.setOnClickListener {
-            var valeText = binding.valueProduct.text.toString()
-            var descriptionText = binding.nameProduct.text
+            val valeText = binding.valueProduct.text.toString()
+            val descriptionText = binding.nameProduct.text
             addProduct(valeText.toDouble(), descriptionText.toString())
         }
     }
 
-    private fun adapterOnClick(productCurrent: Products) {
+    private fun ActionBar.setTitleColor(color: Int, t: String) {
+        val text = SpannableString(t)
+        text.setSpan(ForegroundColorSpan(color),0,text.length, Spannable.SPAN_INCLUSIVE_INCLUSIVE)
+        title = text
+    }
 
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            android.R.id.home -> {
+                val intent = Intent(this, MainActivity::class.java)
+                startActivity(intent)
+                finish()
+                return true
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+    private fun adapterOnClick(productCurrent: Products) {
         val builder = AlertDialog.Builder(this)
         val inflater = layoutInflater
-        builder.setTitle("Atualize o registro")
+
         val dialogLayout = inflater.inflate(R.layout.alert_update_items, null)
         val editTextDescription = dialogLayout.findViewById<EditText>(R.id.editTextDescription)
         val editTextValue = dialogLayout.findViewById<EditText>(R.id.editTextValue)
@@ -102,12 +129,12 @@ class AddEditListShopping : AppCompatActivity() {
                     .document(productCurrent.documentId.toString())
                     .update("description", editTextDescription.text.toString(),"value", editTextValue.text.toString().toDouble() )
                     .addOnSuccessListener {
-                        println("Deu bom")
-                    }.addOnFailureListener { e -> println("Deu ruim :: ${e}") }
+                        println(":)")
+                    }.addOnFailureListener { e -> println(":( :: $e") }
             }
         }
 
-        builder.setNegativeButton("Cancelar") { dialog, _ ->
+        builder.setNegativeButton(getString(R.string.cancel)) { dialog, _ ->
             dialog.cancel()
         }
 
@@ -121,8 +148,8 @@ class AddEditListShopping : AppCompatActivity() {
             .document(documentId)
             .update("total", value)
             .addOnSuccessListener {
-                println("Deu bom")
-            }.addOnFailureListener { e -> println("Deu ruim :: ${e}") }
+                println(":)")
+            }.addOnFailureListener { e -> println(":( :: $e") }
 
     }
 
@@ -139,7 +166,7 @@ class AddEditListShopping : AppCompatActivity() {
             .collection("products")
             .add(product)
             .addOnSuccessListener { documentReference ->
-                CustomToast.success(this, "Cadastrado com sucesso :)")
+                CustomToast.success(this, getString(R.string.registered_successfully))
                 binding.valueProduct.setText("")
                 binding.nameProduct.setText("")
                 binding.nameProduct.requestFocus()

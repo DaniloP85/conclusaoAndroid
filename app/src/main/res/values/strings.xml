@@ -12,5 +12,14 @@
     <string name="email_validate">Please enter a valid email</string>
     <string name="account_created">Account created :)</string>
     <string name="account_created_error">Something went wrong :(</string>
-    <string name="no_products">no products</string>
+    <string name="no_products">No Products</string>
+    <string name="product_name">Product name</string>
+    <string name="product_value">Product value</string>
+    <string name="new_product">New Product</string>
+    <string name="total">Total</string>
+    <string name="update_register">Update Register</string>
+    <string name="cancel">Cancel</string>
+    <string name="registered_successfully">Registered Successfully :)</string>
+    <string name="market_name">market name</string>
+    <string name="enter_market_name">Enter market name</string>
 </resources>
