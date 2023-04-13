@@ -1,14 +1,10 @@
 package br.com.conclusaoandroid.adapter
 
 import android.annotation.SuppressLint
-import android.content.Context
-import android.content.Intent
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
-import br.com.conclusaoandroid.Login
 import br.com.conclusaoandroid.databinding.ShoppingItemBinding
 import br.com.conclusaoandroid.model.Shopping
 import com.google.firebase.firestore.Query
@@ -41,8 +37,6 @@ open class ShoppingAdapter(query: Query, private val onClick: (Shopping) -> Unit
             currentShopping = shopping
             currentShopping?.documentId = snapshotId
 
-            println("okkk.:" + currentShopping)
-
             binding.marketplace.text = shopping.marketplace
 
             var pattern = "dd/MM/yyyy";
@@ -51,11 +45,10 @@ open class ShoppingAdapter(query: Query, private val onClick: (Shopping) -> Unit
 
             binding.date.text = date
 
-            val total = listOf(shopping.items?.map { x -> x.value })[0]?.reduce { acc, d -> acc?.plus(d ?: 0.0)}
             val format: NumberFormat = NumberFormat.getCurrencyInstance()
             format.maximumFractionDigits = 2
             format.setCurrency(Currency.getInstance("BRL")).toString()
-            binding.value.text = format.format(total)
+            binding.value.text = format.format(shopping.total)
 
             binding.removeShopping.setOnClickListener {
                 removeShopping(shopping, snapshotId)

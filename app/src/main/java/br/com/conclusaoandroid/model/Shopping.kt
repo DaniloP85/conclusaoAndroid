@@ -9,5 +9,5 @@ data class Shopping (
     var marketplace:  String? = null,
     var userId:  String? = null,
     var documentId:  String? = null,
-    var items:  List<ShoppingItem>? = null
+    var total:  Double? = null
 )
