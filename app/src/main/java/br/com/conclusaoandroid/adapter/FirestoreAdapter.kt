@@ -71,6 +71,10 @@ abstract class FirestoreAdapter<VH : RecyclerView.ViewHolder>(private var query:
         return snapshots.size
     }
 
+    protected fun getAllSnapshot(): ArrayList<DocumentSnapshot>{
+        return snapshots
+    }
+
     protected fun getSnapshot(index: Int): DocumentSnapshot {
         return snapshots[index]
     }

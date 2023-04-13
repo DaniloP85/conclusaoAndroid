@@ -49,6 +49,7 @@ class MainActivity : AppCompatActivity() {
 
         shoppingAdapter = object : ShoppingAdapter(shoppingQuery, { shopping -> adapterOnClick(shopping) }) {
             override fun onDataChanged() {
+
                 if (itemCount == 0) {
                     binding.rltHome.visibility = View.GONE
                     binding.rltEmptyState.visibility = View.VISIBLE
@@ -66,6 +67,7 @@ class MainActivity : AppCompatActivity() {
     private fun adapterOnClick(shopping: Shopping) {
         val intent = Intent(this, AddEditListShopping::class.java)
         intent.putExtra("documentId", "${shopping.documentId}")
+        intent.putExtra("marketplace", "${shopping.marketplace}")
         startActivity(intent)
         finish()
     }
@@ -95,16 +97,11 @@ class MainActivity : AppCompatActivity() {
 
     private fun addShopping(marketplace:String, userId:String){
 
-        val shoppingItem = hashMapOf(
-            "description" to "",
-            "value" to 0
-        )
-
         val shopping = hashMapOf(
             "userId" to userId,
             "marketplace" to marketplace,
             "date" to Timestamp.now(),
-            "items" to arrayListOf(shoppingItem)
+            "total" to 0
         )
 
         Firebase
@@ -135,6 +132,7 @@ class MainActivity : AppCompatActivity() {
         super.onStop()
         shoppingAdapter.stopListening()
     }
+
     companion object {
 
         private const val TAG = "MainActivity"
