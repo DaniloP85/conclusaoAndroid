@@ -22,4 +22,5 @@
     <string name="registered_successfully">Registered Successfully :)</string>
     <string name="market_name">market name</string>
     <string name="enter_market_name">Enter market name</string>
+    <string name="fill_in_all_fields">Fill in all fields</string>
 </resources>
