@@ -21,7 +21,7 @@ open class ShoppingAdapter(
     private val onClickEditShopping: (Shopping) -> Unit) : FirestoreAdapter<ShoppingAdapter.ViewHolder>(query) {
 
     class ViewHolder(
-        val binding: ShoppingItemBinding,
+        private val binding: ShoppingItemBinding,
         val onClick: (Shopping) -> Unit,
         val onClickEditShopping: (Shopping) -> Unit) : RecyclerView.ViewHolder(binding.root) {
 
@@ -35,19 +35,17 @@ open class ShoppingAdapter(
             }
         }
 
-        @SuppressLint("LongLogTag")
+        @SuppressLint("LongLogTag", "SimpleDateFormat")
         fun bind(shopping: Shopping, snapshotId: String) {
-            if (shopping == null) {
-                return
-            }
+
             currentShopping = shopping
             currentShopping?.documentId = snapshotId
 
             binding.marketplace.text = shopping.marketplace
 
-            var pattern = "dd/MM/yyyy";
-            var simpleDateFormat = SimpleDateFormat(pattern);
-            var date = shopping.date?.toDate()?.let { simpleDateFormat.format(it) };
+            val pattern = "dd/MM/yyyy"
+            val simpleDateFormat = SimpleDateFormat(pattern)
+            val date = shopping.date?.toDate()?.let { simpleDateFormat.format(it) }
 
             binding.date.text = date
 
