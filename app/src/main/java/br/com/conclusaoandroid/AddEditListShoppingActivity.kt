@@ -16,7 +16,7 @@ import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import br.com.conclusaoandroid.adapter.ShoppingListAdapter
 import br.com.conclusaoandroid.databinding.ActivityAddEditListShoppingBinding
-import br.com.conclusaoandroid.model.Products
+import br.com.conclusaoandroid.model.Product
 import com.example.mobcompoents.cusomtoast.CustomToast
 import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.ktx.firestore
@@ -25,7 +25,7 @@ import com.google.firebase.ktx.Firebase
 import java.text.NumberFormat
 import java.util.*
 
-class AddEditListShopping : AppCompatActivity() {
+class AddEditListShoppingActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityAddEditListShoppingBinding
     private lateinit var shoppingListAdapter: ShoppingListAdapter
@@ -74,7 +74,7 @@ class AddEditListShopping : AppCompatActivity() {
 
                     var amount = 0.0
                     for (item in allProducts) {
-                        val itemObject = item.toObject<Products>()
+                        val itemObject = item.toObject<Product>()
                         amount += itemObject?.value!!
                     }
                     binding.recyclerShoppingList.adapter = shoppingListAdapter
@@ -94,7 +94,7 @@ class AddEditListShopping : AppCompatActivity() {
             val descriptionText = binding.nameProduct.text.toString()
 
             if (valeText.isBlank() || descriptionText.isBlank()){
-                CustomToast.error(this, getString(R.string.fill_in_all_fields))
+                CustomToast.warning(this, getString(R.string.fill_in_all_fields))
                 return@setOnClickListener
             }
 
@@ -120,7 +120,8 @@ class AddEditListShopping : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
-    private fun adapterOnClick(productCurrent: Products) {
+    @SuppressLint("LongLogTag")
+    private fun adapterOnClick(productCurrent: Product) {
         val builder = AlertDialog.Builder(this)
         val inflater = layoutInflater
 
@@ -157,6 +158,7 @@ class AddEditListShopping : AppCompatActivity() {
         builder.show()
     }
 
+    @SuppressLint("LongLogTag")
     private fun updateTotalShopping(value: Double) {
         Firebase
             .firestore
@@ -205,6 +207,6 @@ class AddEditListShopping : AppCompatActivity() {
     }
 
     companion object {
-        private const val TAG = "AddEditListShopping"
+        private const val TAG = "AddEditListShoppingActivity"
     }
 }
