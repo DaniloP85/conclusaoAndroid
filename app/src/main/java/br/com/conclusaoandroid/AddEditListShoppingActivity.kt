@@ -94,7 +94,7 @@ class AddEditListShoppingActivity : AppCompatActivity() {
             val descriptionText = binding.nameProduct.text.toString()
 
             if (valeText.isBlank() || descriptionText.isBlank()){
-                CustomToast.error(this, getString(R.string.fill_in_all_fields))
+                CustomToast.warning(this, getString(R.string.fill_in_all_fields))
                 return@setOnClickListener
             }
 
