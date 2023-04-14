@@ -60,6 +60,8 @@ class AddEditListShopping : AppCompatActivity() {
 
         shoppingListAdapter = object :
             ShoppingListAdapter(queryShopping, documentId, { product -> adapterOnClick(product) }) {
+
+            @SuppressLint("SetTextI18n")
             override fun onDataChanged() {
                 val total: String = getString(R.string.total)
 
