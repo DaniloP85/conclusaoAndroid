@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import br.com.conclusaoandroid.databinding.ShoppingListItemBinding
-import br.com.conclusaoandroid.model.Products
+import br.com.conclusaoandroid.model.Product
 import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
@@ -14,11 +14,11 @@ import com.google.firebase.ktx.Firebase
 import java.text.NumberFormat
 import java.util.*
 
-open class ShoppingListAdapter(query: Query, private val documentIdFather: String, private val onClick: (Products) -> Unit) : FirestoreAdapter<ShoppingListAdapter.ShoppingListViewHolder>(query) {
+open class ShoppingListAdapter(query: Query, private val documentIdFather: String, private val onClick: (Product) -> Unit) : FirestoreAdapter<ShoppingListAdapter.ShoppingListViewHolder>(query) {
 
-    class ShoppingListViewHolder(private val binding: ShoppingListItemBinding, private val documentIdFather: String, val onClick: (Products) -> Unit) : RecyclerView.ViewHolder(binding.root) {
+    class ShoppingListViewHolder(private val binding: ShoppingListItemBinding, private val documentIdFather: String, val onClick: (Product) -> Unit) : RecyclerView.ViewHolder(binding.root) {
 
-        private var currentProduct: Products? = null
+        private var currentProduct: Product? = null
 
         init {
             itemView.setOnClickListener {
@@ -28,7 +28,7 @@ open class ShoppingListAdapter(query: Query, private val documentIdFather: Strin
             }
         }
 
-        fun bind(word: Products, snapshotId: String) {
+        fun bind(word: Product, snapshotId: String) {
 
             currentProduct = word
             currentProduct?.documentId = snapshotId
@@ -66,7 +66,7 @@ open class ShoppingListAdapter(query: Query, private val documentIdFather: Strin
 
     override fun onBindViewHolder(holder: ShoppingListViewHolder, position: Int) {
         val snapshot = getSnapshot(position)
-        snapshot.toObject<Products>()?.let {
+        snapshot.toObject<Product>()?.let {
             holder.bind(it, snapshot.id)
         }
     }

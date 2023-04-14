@@ -16,7 +16,7 @@ import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import br.com.conclusaoandroid.adapter.ShoppingListAdapter
 import br.com.conclusaoandroid.databinding.ActivityAddEditListShoppingBinding
-import br.com.conclusaoandroid.model.Products
+import br.com.conclusaoandroid.model.Product
 import com.example.mobcompoents.cusomtoast.CustomToast
 import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.ktx.firestore
@@ -74,7 +74,7 @@ class AddEditListShopping : AppCompatActivity() {
 
                     var amount = 0.0
                     for (item in allProducts) {
-                        val itemObject = item.toObject<Products>()
+                        val itemObject = item.toObject<Product>()
                         amount += itemObject?.value!!
                     }
                     binding.recyclerShoppingList.adapter = shoppingListAdapter
@@ -120,7 +120,7 @@ class AddEditListShopping : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
-    private fun adapterOnClick(productCurrent: Products) {
+    private fun adapterOnClick(productCurrent: Product) {
         val builder = AlertDialog.Builder(this)
         val inflater = layoutInflater
 
