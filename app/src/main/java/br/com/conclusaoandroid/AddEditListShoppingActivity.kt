@@ -25,7 +25,7 @@ import com.google.firebase.ktx.Firebase
 import java.text.NumberFormat
 import java.util.*
 
-class AddEditListShopping : AppCompatActivity() {
+class AddEditListShoppingActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityAddEditListShoppingBinding
     private lateinit var shoppingListAdapter: ShoppingListAdapter
@@ -120,6 +120,7 @@ class AddEditListShopping : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
+    @SuppressLint("LongLogTag")
     private fun adapterOnClick(productCurrent: Product) {
         val builder = AlertDialog.Builder(this)
         val inflater = layoutInflater
@@ -157,6 +158,7 @@ class AddEditListShopping : AppCompatActivity() {
         builder.show()
     }
 
+    @SuppressLint("LongLogTag")
     private fun updateTotalShopping(value: Double) {
         Firebase
             .firestore
@@ -205,6 +207,6 @@ class AddEditListShopping : AppCompatActivity() {
     }
 
     companion object {
-        private const val TAG = "AddEditListShopping"
+        private const val TAG = "AddEditListShoppingActivity"
     }
 }

@@ -82,7 +82,7 @@ class MainActivity : AppCompatActivity() {
 
     @SuppressLint("SimpleDateFormat")
     private fun adapterOnClick(shopping: Shopping) {
-        val intent = Intent(this, AddEditListShopping::class.java)
+        val intent = Intent(this, AddEditListShoppingActivity::class.java)
         intent.putExtra("documentId", "${shopping.documentId}")
         intent.putExtra("marketPlace", "${shopping.marketplace}")
 
