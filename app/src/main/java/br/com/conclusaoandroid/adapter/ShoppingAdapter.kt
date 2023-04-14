@@ -15,9 +15,15 @@ import java.text.NumberFormat
 import java.text.SimpleDateFormat
 import java.util.*
 
-open class ShoppingAdapter(query: Query, private val onClick: (Shopping) -> Unit) : FirestoreAdapter<ShoppingAdapter.ViewHolder>(query) {
+open class ShoppingAdapter(
+    query: Query,
+    private val onClick: (Shopping) -> Unit,
+    private val onClickEditShopping: (Shopping) -> Unit) : FirestoreAdapter<ShoppingAdapter.ViewHolder>(query) {
 
-    class ViewHolder(val binding: ShoppingItemBinding, val onClick: (Shopping) -> Unit) : RecyclerView.ViewHolder(binding.root) {
+    class ViewHolder(
+        val binding: ShoppingItemBinding,
+        val onClick: (Shopping) -> Unit,
+        val onClickEditShopping: (Shopping) -> Unit) : RecyclerView.ViewHolder(binding.root) {
 
         private var currentShopping: Shopping? = null
 
@@ -53,6 +59,12 @@ open class ShoppingAdapter(query: Query, private val onClick: (Shopping) -> Unit
             binding.removeShopping.setOnClickListener {
                 removeShopping(shopping, snapshotId)
             }
+
+            binding.editShopping.setOnClickListener {
+                currentShopping?.let {
+                    onClickEditShopping(shopping)
+                }
+            }
         }
 
         @SuppressLint("LongLogTag")
@@ -82,6 +94,6 @@ open class ShoppingAdapter(query: Query, private val onClick: (Shopping) -> Unit
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = ShoppingItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return ViewHolder(view, onClick)
+        return ViewHolder(view, onClick, onClickEditShopping)
     }
 }

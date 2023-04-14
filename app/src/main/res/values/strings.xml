@@ -9,6 +9,7 @@
     <string name="click_to_register">Don\'t have an account? <font fgcolor='#FF0075FF'><u><b>Sign Up!</b></u></font></string>
     <string name="login_validate_fields">Email or Password are empty</string>
     <string name="add_new">Add new</string>
+    <string name="edit">edit</string>
     <string name="email_validate">Please enter a valid email</string>
     <string name="account_created">Account created :)</string>
     <string name="account_created_error">Something went wrong :(</string>
