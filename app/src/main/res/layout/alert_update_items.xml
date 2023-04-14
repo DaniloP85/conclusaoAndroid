@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:width="@dimen/cardview_compat_inset_shadow"
-        android:hint="digite aqui"/>
+        android:hint="@string/type_here"/>
 
     <EditText
         android:id="@+id/editTextValue"
@@ -18,6 +18,6 @@
         android:layout_height="wrap_content"
         android:inputType="numberDecimal"
         android:width="@dimen/cardview_compat_inset_shadow"
-        android:hint="digite aqui"/>
+        android:hint="@string/type_here"/>
 
 </LinearLayout>

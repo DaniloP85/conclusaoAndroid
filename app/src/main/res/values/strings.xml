@@ -24,4 +24,6 @@
     <string name="market_name">market name</string>
     <string name="enter_market_name">Enter market name</string>
     <string name="fill_in_all_fields">Fill in all fields</string>
+    <string name="no_items_yet">No items yet</string>
+    <string name="type_here">type here</string>
 </resources>
