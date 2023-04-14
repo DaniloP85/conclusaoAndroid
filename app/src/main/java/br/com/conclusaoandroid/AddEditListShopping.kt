@@ -1,7 +1,7 @@
 package br.com.conclusaoandroid
 
+import android.annotation.SuppressLint
 import android.app.AlertDialog
-import android.content.ContentValues.TAG
 import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
@@ -18,6 +18,7 @@ import br.com.conclusaoandroid.adapter.ShoppingListAdapter
 import br.com.conclusaoandroid.databinding.ActivityAddEditListShoppingBinding
 import br.com.conclusaoandroid.model.Products
 import com.example.mobcompoents.cusomtoast.CustomToast
+import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
@@ -53,15 +54,21 @@ class AddEditListShopping : AppCompatActivity() {
         val queryShopping = Firebase.firestore
             .collection("shopping")
             .document(documentId)
-            .collection("products").limit(100)
+            .collection("products")
+            .orderBy("description", Query.Direction.ASCENDING)
+            .limit(300)
 
         shoppingListAdapter = object :
             ShoppingListAdapter(queryShopping, documentId, { product -> adapterOnClick(product) }) {
+
+            @SuppressLint("SetTextI18n")
             override fun onDataChanged() {
+                val total: String = getString(R.string.total)
+
                 if (itemCount == 0) {
                     println("Nothing $documentId")
                     updateTotalShopping(0.0)
-                    binding.valueTotal.text = "0"
+                    binding.valueTotal.text = "$total: R$0"
                 } else {
                     val allProducts = getAllSnapshot()
 
@@ -74,7 +81,7 @@ class AddEditListShopping : AppCompatActivity() {
                     val format: NumberFormat = NumberFormat.getCurrencyInstance()
                     format.maximumFractionDigits = 2
                     format.setCurrency(Currency.getInstance("BRL")).toString()
-                    val total: String = getString(R.string.total)
+
                     binding.valueTotal.text = "$total: ${format.format(amount)}"
 
                     updateTotalShopping(amount)
@@ -84,8 +91,14 @@ class AddEditListShopping : AppCompatActivity() {
 
         binding.addProduct.setOnClickListener {
             val valeText = binding.valueProduct.text.toString()
-            val descriptionText = binding.nameProduct.text
-            addProduct(valeText.toDouble(), descriptionText.toString())
+            val descriptionText = binding.nameProduct.text.toString()
+
+            if (valeText.isBlank() || descriptionText.isBlank()){
+                CustomToast.error(this, getString(R.string.fill_in_all_fields))
+                return@setOnClickListener
+            }
+
+            addProduct(valeText.toDouble(), descriptionText)
         }
     }
 
@@ -114,12 +127,12 @@ class AddEditListShopping : AppCompatActivity() {
         val dialogLayout = inflater.inflate(R.layout.alert_update_items, null)
         val editTextDescription = dialogLayout.findViewById<EditText>(R.id.editTextDescription)
         val editTextValue = dialogLayout.findViewById<EditText>(R.id.editTextValue)
-
+        builder.setTitle(getString(R.string.update_register))
         editTextDescription.setText(productCurrent.description)
         editTextValue.setText(productCurrent.value.toString())
 
         builder.setView(dialogLayout)
-        builder.setPositiveButton("edit") { _, _ ->
+        builder.setPositiveButton(getString(R.string.edit)) { _, _ ->
             if (editTextDescription.text.isNotBlank() && editTextValue.text.isNotBlank()) {
 
                 Firebase.firestore
@@ -129,8 +142,11 @@ class AddEditListShopping : AppCompatActivity() {
                     .document(productCurrent.documentId.toString())
                     .update("description", editTextDescription.text.toString(),"value", editTextValue.text.toString().toDouble() )
                     .addOnSuccessListener {
-                        println(":)")
-                    }.addOnFailureListener { e -> println(":( :: $e") }
+                        Log.d(TAG,":)")
+                        CustomToast.success( this, getString(R.string.registered_successfully) )
+                    }.addOnFailureListener { e ->  Log.d(TAG,":( :: $e") }
+            } else {
+                CustomToast.warning(this, getString(R.string.fill_in_all_fields))
             }
         }
 
@@ -148,11 +164,12 @@ class AddEditListShopping : AppCompatActivity() {
             .document(documentId)
             .update("total", value)
             .addOnSuccessListener {
-                println(":)")
-            }.addOnFailureListener { e -> println(":( :: $e") }
+                Log.d(TAG,":)")
+            }.addOnFailureListener { e -> Log.d(TAG, ":( :: $e") }
 
     }
 
+    @SuppressLint("LongLogTag")
     private fun addProduct(value: Double, description: String) {
 
         val product = hashMapOf(
@@ -185,5 +202,9 @@ class AddEditListShopping : AppCompatActivity() {
     public override fun onStop() {
         super.onStop()
         shoppingListAdapter.stopListening()
+    }
+
+    companion object {
+        private const val TAG = "AddEditListShopping"
     }
 }

@@ -1,5 +1,6 @@
 package br.com.conclusaoandroid
 
+import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.Intent
 import android.graphics.Color
@@ -19,9 +20,11 @@ import com.google.firebase.ktx.Firebase
 import java.text.SimpleDateFormat
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityMainBinding;
-    private lateinit var auth: FirebaseAuth;
+    private lateinit var binding: ActivityMainBinding
+    private lateinit var auth: FirebaseAuth
     private lateinit var shoppingAdapter: ShoppingAdapter
+    private lateinit var userId: String
+    private lateinit var documentIdUpdate: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,12 +46,17 @@ class MainActivity : AppCompatActivity() {
             gotoLogin()
         }
 
-        var shoppingQuery = Firebase.firestore
+        val shoppingQuery = Firebase.firestore
             .collection("shopping")
             .whereEqualTo("userId", auth.uid)
             .limit(50)
 
-        shoppingAdapter = object : ShoppingAdapter(shoppingQuery, { shopping -> adapterOnClick(shopping) }) {
+        userId = auth.uid.toString()
+
+        shoppingAdapter = object : ShoppingAdapter(
+            shoppingQuery,
+            { shopping -> adapterOnClick(shopping) },
+            { shopping -> adapterOnClickEditShopping(shopping) }) {
             override fun onDataChanged() {
 
                 if (itemCount == 0) {
@@ -62,47 +70,77 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        setupListener(auth.uid.toString())
+        setupListener()
     }
 
+    private fun adapterOnClickEditShopping(shopping: Shopping) {
+        documentIdUpdate = shopping.documentId.toString()
+        alert(shopping.marketplace.toString(), getString(R.string.update_register), getString(R.string.edit)) { name ->
+            updateShopping(name)
+        }
+    }
+
+    @SuppressLint("SimpleDateFormat")
     private fun adapterOnClick(shopping: Shopping) {
         val intent = Intent(this, AddEditListShopping::class.java)
         intent.putExtra("documentId", "${shopping.documentId}")
         intent.putExtra("marketPlace", "${shopping.marketplace}")
 
-        var pattern = "dd/MM/yyyy";
-        var simpleDateFormat = SimpleDateFormat(pattern);
-        var date = shopping.date?.toDate()?.let { simpleDateFormat.format(it) };
+        val pattern = "dd/MM/yyyy"
+        val simpleDateFormat = SimpleDateFormat(pattern)
+        val date = shopping.date?.toDate()?.let { simpleDateFormat.format(it) }
         intent.putExtra("marketDate", "$date")
 
         startActivity(intent)
         finish()
     }
 
-    private fun setupListener(userId:String) {
+    private fun alert(textInputAlert: String, title: String, labelButton: String, exec: (String) -> Unit){
+
+        val builder = AlertDialog.Builder(this)
+        val inflater = layoutInflater
+        builder.setTitle(title)
+        val dialogLayout = inflater.inflate(R.layout.alert_dialog_with_edittext, null)
+        val editText = dialogLayout.findViewById<EditText>(R.id.editText)
+
+        if (textInputAlert.isNotBlank()) {
+            editText.setText(textInputAlert)
+        }
+
+        builder.setView(dialogLayout)
+        builder.setPositiveButton(labelButton) { _, _ ->
+            if (editText.text.isNotBlank()) {
+                exec(editText.text.toString())
+            }
+        }
+
+        builder.setNegativeButton(R.string.cancel) {
+                dialog, _ -> dialog.cancel()
+        }
+
+        builder.show()
+    }
+
+    private fun setupListener() {
         binding.addShopping.setOnClickListener{
-
-            val builder = AlertDialog.Builder(this)
-            val inflater = layoutInflater
-            builder.setTitle(getString(R.string.enter_market_name))
-            val dialogLayout = inflater.inflate(R.layout.alert_dialog_with_edittext, null)
-            val editText  = dialogLayout.findViewById<EditText>(R.id.editText)
-            builder.setView(dialogLayout)
-            builder.setPositiveButton(R.string.add_new) {
-                    _, _ -> if (editText.text.isNotBlank()) {
-                        addShopping(editText.text.toString(), userId)
-                    }
+            alert("", getString(R.string.enter_market_name), getString(R.string.add_new)) { name ->
+                addShopping(name)
             }
-
-            builder.setNegativeButton(R.string.cancel) {
-                    dialog, _ -> dialog.cancel()
-            }
-
-            builder.show()
         }
     }
 
-    private fun addShopping(marketplace:String, userId:String){
+    private fun updateShopping(nameMarkerPlace: String){
+        Firebase.firestore
+            .collection("shopping")
+            .document(documentIdUpdate)
+            .update("marketplace", nameMarkerPlace)
+            .addOnSuccessListener {
+                Log.d(TAG,":)")
+                CustomToast.success( this, getString(R.string.registered_successfully) )
+            }.addOnFailureListener { e ->  Log.d(TAG,":( :: $e") }
+    }
+
+    private fun addShopping(marketplace:String){
 
         val shopping = hashMapOf(
             "userId" to userId,
@@ -125,9 +163,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun gotoLogin() {
-        val intent = Intent(this, Login::class.java);
-        startActivity(intent);
-        finish();
+        val intent = Intent(this, Login::class.java)
+        startActivity(intent)
+        finish()
     }
 
     public override fun onStart() {
@@ -141,7 +179,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     companion object {
-
         private const val TAG = "MainActivity"
     }
 }
