@@ -14,13 +14,13 @@ import com.google.firebase.auth.FirebaseAuth
 import com.example.mobcompoents.cusomtoast.CustomToast
 
 class Register : AppCompatActivity() {
-    private lateinit var binding: ActivityRegisterBinding;
+    private lateinit var binding: ActivityRegisterBinding
 
-    lateinit var auth: FirebaseAuth;
+    private lateinit var auth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityRegisterBinding.inflate(layoutInflater);
+        binding = ActivityRegisterBinding.inflate(layoutInflater)
 
         window.statusBarColor = Color.parseColor("#0075FF")
 
@@ -34,25 +34,25 @@ class Register : AppCompatActivity() {
 
     private fun setUpListener() {
         binding.btnRegister.setOnClickListener {
-            binding.progressBarRegister.visibility = View.VISIBLE;
-            val email = binding.emailRegister.text.toString();
-            val password = binding.passwordRegister.text.toString();
+            binding.progressBarRegister.visibility = View.VISIBLE
+            val email = binding.emailRegister.text.toString()
+            val password = binding.passwordRegister.text.toString()
 
             if (email.isEmpty() || password.isEmpty()) {
-                binding.progressBarRegister.visibility = View.GONE;
+                binding.progressBarRegister.visibility = View.GONE
                 CustomToast.warning( this, getString(R.string.register_validate) )
-                return@setOnClickListener;
+                return@setOnClickListener
             }
 
             if(!Utils.emailValidator(email)) {
-                binding.progressBarRegister.visibility = View.GONE;
+                binding.progressBarRegister.visibility = View.GONE
                 CustomToast.error( this, getString(R.string.email_validate) )
-                return@setOnClickListener;
+                return@setOnClickListener
             }
 
             auth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this) { task ->
-                    binding.progressBarRegister.visibility = View.GONE;
+                    binding.progressBarRegister.visibility = View.GONE
 
                     if (task.isSuccessful) {
                         // Sign in success, update UI with the signed-in user's information
@@ -60,7 +60,7 @@ class Register : AppCompatActivity() {
                         CustomToast.success( this, getString(R.string.account_created) )
                         startLoginPage()
                     } else {
-                        binding.progressBarRegister.visibility = View.GONE;
+                        binding.progressBarRegister.visibility = View.GONE
                         // If sign in fails, display a message to the user.
                         Log.w(TAG, "createUserWithEmail:failure", task.exception)
                         CustomToast.error(this, getString(R.string.account_created_error))
@@ -74,8 +74,8 @@ class Register : AppCompatActivity() {
     }
 
     private fun startLoginPage() {
-        val intent = Intent(this, Login::class.java);
-        startActivity(intent);
-        finish();
+        val intent = Intent(this, Login::class.java)
+        startActivity(intent)
+        finish()
     }
 }

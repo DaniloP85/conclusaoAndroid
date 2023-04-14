@@ -14,13 +14,13 @@ import com.google.firebase.auth.FirebaseAuth
 import com.example.mobcompoents.cusomtoast.CustomToast
 
 class Login : AppCompatActivity() {
-    private lateinit var binding: ActivityLoginBinding;
+    private lateinit var binding: ActivityLoginBinding
 
-    private lateinit var auth: FirebaseAuth;
+    private lateinit var auth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityLoginBinding.inflate(layoutInflater);
+        binding = ActivityLoginBinding.inflate(layoutInflater)
 
         window.statusBarColor = Color.parseColor("#0075FF")
 
@@ -43,26 +43,26 @@ class Login : AppCompatActivity() {
 
     private fun setUpListener() {
         binding.registerNow.setOnClickListener {
-            val intent = Intent(this, Register::class.java);
-            startActivity(intent);
-            finish();
+            val intent = Intent(this, Register::class.java)
+            startActivity(intent)
+            finish()
         }
 
         binding.btnLogin.setOnClickListener {
-            binding.progressBarLogin.visibility = View.VISIBLE;
-            val email = binding.email.text.toString();
-            val password = binding.password.text.toString();
+            binding.progressBarLogin.visibility = View.VISIBLE
+            val email = binding.email.text.toString()
+            val password = binding.password.text.toString()
 
             if (email.isEmpty() || password.isEmpty()) {
-                binding.progressBarLogin.visibility = View.GONE;
+                binding.progressBarLogin.visibility = View.GONE
                 CustomToast.warning( this, getString(R.string.login_validate_fields) )
-                return@setOnClickListener;
+                return@setOnClickListener
             }
 
             if(!Utils.emailValidator(email)) {
-                binding.progressBarLogin.visibility = View.GONE;
+                binding.progressBarLogin.visibility = View.GONE
                 CustomToast.error( this, getString(R.string.email_validate) )
-                return@setOnClickListener;
+                return@setOnClickListener
             }
 
             auth.signInWithEmailAndPassword(email, password).addOnCompleteListener(this) { task ->
@@ -73,7 +73,7 @@ class Login : AppCompatActivity() {
                     startMainPage()
 
                 } else {
-                    binding.progressBarLogin.visibility = View.GONE;
+                    binding.progressBarLogin.visibility = View.GONE
                     // If sign in fails, display a message to the user.
                     Log.w(TAG, "signInWithEmail:failure", task.exception)
                     CustomToast.error(this, "Authentication failed :(")
@@ -83,8 +83,8 @@ class Login : AppCompatActivity() {
     }
 
     private fun startMainPage() {
-        val intent = Intent(this, MainActivity::class.java);
-        startActivity(intent);
-        finish();
+        val intent = Intent(this, MainActivity::class.java)
+        startActivity(intent)
+        finish()
     }
 }

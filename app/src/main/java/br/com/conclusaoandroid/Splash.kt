@@ -9,7 +9,7 @@ import android.os.Looper
 import com.google.firebase.auth.FirebaseAuth
 
 class Splash : AppCompatActivity() {
-    lateinit var auth: FirebaseAuth;
+    private lateinit var auth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,13 +23,13 @@ class Splash : AppCompatActivity() {
         Handler(Looper.getMainLooper()).postDelayed({
             val currentUser = auth.currentUser
             if(currentUser != null){
-                val intent = Intent(this, MainActivity::class.java);
-                startActivity(intent);
-                finish();
+                val intent = Intent(this, MainActivity::class.java)
+                startActivity(intent)
+                finish()
             } else {
-                val intent = Intent(this, Login::class.java);
-                startActivity(intent);
-                finish();
+                val intent = Intent(this, Login::class.java)
+                startActivity(intent)
+                finish()
             }
         }, 3000)
     }
