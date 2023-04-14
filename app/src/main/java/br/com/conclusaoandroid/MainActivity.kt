@@ -1,5 +1,6 @@
 package br.com.conclusaoandroid
 
+import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.Intent
 import android.graphics.Color
@@ -19,11 +20,11 @@ import com.google.firebase.ktx.Firebase
 import java.text.SimpleDateFormat
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityMainBinding;
-    private lateinit var auth: FirebaseAuth;
-    private lateinit var shoppingAdapter: ShoppingAdapter;
-    private lateinit var userId: String;
-    private lateinit var documentIdUpdate: String;
+    private lateinit var binding: ActivityMainBinding
+    private lateinit var auth: FirebaseAuth
+    private lateinit var shoppingAdapter: ShoppingAdapter
+    private lateinit var userId: String
+    private lateinit var documentIdUpdate: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,7 +46,7 @@ class MainActivity : AppCompatActivity() {
             gotoLogin()
         }
 
-        var shoppingQuery = Firebase.firestore
+        val shoppingQuery = Firebase.firestore
             .collection("shopping")
             .whereEqualTo("userId", auth.uid)
             .limit(50)
@@ -79,14 +80,15 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    @SuppressLint("SimpleDateFormat")
     private fun adapterOnClick(shopping: Shopping) {
         val intent = Intent(this, AddEditListShopping::class.java)
         intent.putExtra("documentId", "${shopping.documentId}")
         intent.putExtra("marketPlace", "${shopping.marketplace}")
 
-        var pattern = "dd/MM/yyyy";
-        var simpleDateFormat = SimpleDateFormat(pattern);
-        var date = shopping.date?.toDate()?.let { simpleDateFormat.format(it) };
+        val pattern = "dd/MM/yyyy"
+        val simpleDateFormat = SimpleDateFormat(pattern)
+        val date = shopping.date?.toDate()?.let { simpleDateFormat.format(it) }
         intent.putExtra("marketDate", "$date")
 
         startActivity(intent)
@@ -161,9 +163,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun gotoLogin() {
-        val intent = Intent(this, Login::class.java);
-        startActivity(intent);
-        finish();
+        val intent = Intent(this, Login::class.java)
+        startActivity(intent)
+        finish()
     }
 
     public override fun onStart() {
