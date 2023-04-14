@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import br.com.conclusaoandroid.databinding.ShoppingListItemBinding
 import br.com.conclusaoandroid.model.Products
-import br.com.conclusaoandroid.model.Shopping
 import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
@@ -15,9 +14,9 @@ import com.google.firebase.ktx.Firebase
 import java.text.NumberFormat
 import java.util.*
 
-open class ShoppingListAdapter(query: Query, val documentIdFather: String, private val onClick: (Products) -> Unit) : FirestoreAdapter<ShoppingListAdapter.ShoppingListViewHolder>(query) {
+open class ShoppingListAdapter(query: Query, private val documentIdFather: String, private val onClick: (Products) -> Unit) : FirestoreAdapter<ShoppingListAdapter.ShoppingListViewHolder>(query) {
 
-    class ShoppingListViewHolder(val binding: ShoppingListItemBinding, val documentIdFather: String, val onClick: (Products) -> Unit) : RecyclerView.ViewHolder(binding.root) {
+    class ShoppingListViewHolder(private val binding: ShoppingListItemBinding, private val documentIdFather: String, val onClick: (Products) -> Unit) : RecyclerView.ViewHolder(binding.root) {
 
         private var currentProduct: Products? = null
 
