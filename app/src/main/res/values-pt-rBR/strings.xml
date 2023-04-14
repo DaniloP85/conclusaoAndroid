@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Compras de Supermercado</string>
+    <string name="login">Conecte-se</string>
+    <string name="email">E-mail</string>
+    <string name="password">Senha</string>
+    <string name="register">Registro</string>
+    <string name="register_validate">E-mail e Senha devem ser preenchidos.</string>
+    <string name="click_to_login"><u>Clique para Entrar</u></string>
+    <string name="click_to_register">Não tem uma conta? <font fgcolor='#FF0075FF'><u><b>Inscrever-se!</b></u></font></string>
+    <string name="login_validate_fields">E-mail ou senha estão vazios</string>
+    <string name="add_new">Adicionar novo</string>
+    <string name="edit">Editar</string>
+    <string name="email_validate">por favor digite um email válido</string>
+    <string name="account_created">Conta criada :)</string>
+    <string name="account_created_error">Algo deu errado :(</string>
+    <string name="no_products">Sem produtos</string>
+    <string name="product_name">Nome do Produto</string>
+    <string name="product_value">Valor do Produto</string>
+    <string name="new_product">Novo Produto</string>
+    <string name="total">Total</string>
+    <string name="update_register">Atualizar Cadastro</string>
+    <string name="cancel">Cancelar</string>
+    <string name="registered_successfully">Registrado com sucesso :)</string>
+    <string name="market_name">Nome de mercado</string>
+    <string name="enter_market_name">Digite o nome do mercado</string>
+    <string name="fill_in_all_fields">Preencha todos os campos</string>
+    <string name="no_items_yet">Ainda não há itens</string>
+    <string name="type_here">Digite aqui</string>
+</resources>
