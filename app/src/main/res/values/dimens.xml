@@ -34,4 +34,6 @@
     <dimen name="text_size_25_sp">25sp</dimen>
     <dimen name="width_40_dp">40dp</dimen>
     <dimen name="width_30_dp">30dp</dimen>
+    <dimen name="margin_top_20_dp">20dp</dimen>
+    <dimen name="height_120_dp">120dp</dimen>
 </resources>

@@ -11,8 +11,7 @@
 
     <androidx.appcompat.widget.AppCompatImageView
         android:layout_width="match_parent"
-        android:layout_height="@dimen/height_180_dp"
-        android:layout_marginBottom="@dimen/margin_32_dp"
+        android:layout_height="@dimen/height_120_dp"
         android:src="@drawable/ic_baseline_shopping_cart_24" />
 
     <com.google.android.material.textfield.TextInputLayout
@@ -66,7 +65,7 @@
         android:id="@+id/registerNow"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_32_dp"
+        android:layout_marginTop="@dimen/margin_top_20_dp"
         android:gravity="center"
         android:text="@string/click_to_register"
         android:textSize="@dimen/text_size_18_sp" />

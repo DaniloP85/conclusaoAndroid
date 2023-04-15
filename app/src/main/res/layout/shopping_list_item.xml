@@ -13,13 +13,13 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/height_40_dp"
+            android:layout_height="50dp"
             android:layout_gravity="center"
             android:orientation="horizontal"
             android:baselineAligned="false">
 
             <LinearLayout
-                android:layout_width="@dimen/width_180_dp"
+                android:layout_width="120dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:orientation="vertical">
@@ -53,19 +53,13 @@
                 android:gravity="center|end"
                 android:orientation="horizontal">
 
-                <LinearLayout
+                <androidx.appcompat.widget.AppCompatImageButton
+                    android:id="@+id/removeProduct"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    tools:ignore="UselessParent">
+                    android:backgroundTint="@color/white"
+                    android:src="@drawable/ic_baseline_delete_24" />
 
-                    <androidx.appcompat.widget.AppCompatImageButton
-                        android:id="@+id/removeProduct"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:backgroundTint="@color/white"
-                        android:src="@drawable/ic_baseline_delete_24" />
-                </LinearLayout>
             </RelativeLayout>
 
         </LinearLayout>
