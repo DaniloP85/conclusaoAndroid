@@ -30,4 +30,8 @@
     <dimen name="height_40_dp">40dp</dimen>
     <dimen name="width_180_dp">180dp</dimen>
     <dimen name="width_50_dp">50dp</dimen>
+    <dimen name="text_size_15_sp">15sp</dimen>
+    <dimen name="text_size_25_sp">25sp</dimen>
+    <dimen name="width_40_dp">40dp</dimen>
+    <dimen name="width_30_dp">30dp</dimen>
 </resources>

@@ -6,9 +6,10 @@
     android:padding="@dimen/padding_16_dp">
 
     <androidx.appcompat.widget.AppCompatEditText
-        android:id="@+id/editText"
+        android:id="@+id/enterMarketName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:width="@dimen/cardview_compat_inset_shadow"
-        android:hint="@string/market_name" />
+        android:hint="@string/market_name"
+        android:maxLength="15"/>
 </LinearLayout>

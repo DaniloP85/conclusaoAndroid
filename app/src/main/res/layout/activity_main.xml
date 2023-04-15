@@ -8,7 +8,7 @@
 
     <include
         android:id="@+id/logMenu"
-        layout="@layout/toolbar" />
+        layout="@layout/toolbar_custom_home" />
 
     <RelativeLayout
         android:id="@+id/rltHome"

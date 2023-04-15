@@ -9,14 +9,16 @@
         android:id="@+id/editTextDescription"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:maxLength="20"
         android:width="@dimen/cardview_compat_inset_shadow"
-        android:hint="@string/type_here" />
+        android:hint="@string/enter_new_description" />
 
     <androidx.appcompat.widget.AppCompatEditText
         android:id="@+id/editTextValue"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:width="@dimen/cardview_compat_inset_shadow"
-        android:hint="@string/type_here"
+        android:hint="@string/enter_new_value"
+        android:maxLength="8"
         android:inputType="numberDecimal" />
 </LinearLayout>
