@@ -1,11 +1,11 @@
 package br.com.conclusaoandroid
 
 import android.content.Intent
-import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import androidx.core.content.ContextCompat
 import com.google.firebase.auth.FirebaseAuth
 
 class Splash : AppCompatActivity() {
@@ -16,7 +16,7 @@ class Splash : AppCompatActivity() {
         setContentView(R.layout.activity_splash)
 
         supportActionBar?.hide()
-        window.statusBarColor = Color.parseColor("#F7E64F")
+        window.statusBarColor = ContextCompat.getColor(baseContext, R.color.splash_screen)
 
         auth = FirebaseAuth.getInstance()
 

@@ -7,72 +7,77 @@
     android:orientation="vertical"
     tools:context=".AddEditListShoppingActivity">
 
+    <br.com.conclusaoandroid.CustomToolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
         android:gravity="center"
-        android:paddingLeft="16dp"
-        android:paddingRight="16dp"
-        android:paddingTop="10dp"
+        android:orientation="vertical"
+        android:paddingLeft="@dimen/padding_16_dp"
+        android:paddingTop="@dimen/padding_10_dp"
+        android:paddingRight="@dimen/padding_16_dp"
         tools:context=".ok">
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/nameProduct"
-                android:hint="@string/product_name"
-                android:inputType="text"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:hint="@string/product_name"
+                android:inputType="text" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="@dimen/margin_5_dp"
             android:orientation="vertical">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/valueProduct"
-                android:inputType="numberDecimal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/product_value" />
+                android:hint="@string/product_value"
+                android:inputType="numberDecimal" />
         </com.google.android.material.textfield.TextInputLayout>
-
 
         <Button
             android:id="@+id/addProduct"
-            android:layout_marginTop="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_10_dp"
             android:backgroundTint="@color/custom_background_color"
-            app:cornerRadius="8dp"
-            app:rippleColor="#33AAAAAA"
-            app:strokeColor="@color/custom_background_color"
-            app:strokeWidth="2dp"
-            android:textSize="20sp"
-            android:textStyle="bold"
+            android:text="@string/add_new"
             android:textColor="@color/white"
-            android:text="@string/add_new" />
+            android:textSize="@dimen/text_size_20_sp"
+            android:textStyle="bold"
+            app:cornerRadius="@dimen/radius_8_dp"
+            app:rippleColor="@color/gray_strong"
+            app:strokeColor="@color/custom_background_color"
+            app:strokeWidth="@dimen/width_2_dp" />
 
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_10_dp"
         android:orientation="vertical"
-        android:paddingLeft="16dp"
-        android:paddingRight="16dp"
-        android:layout_marginTop="10dp">
+        android:paddingLeft="@dimen/padding_16_dp"
+        android:paddingRight="@dimen/padding_16_dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:baselineAligned="false">
+            android:baselineAligned="false"
+            android:orientation="horizontal">
 
             <RelativeLayout
                 android:layout_width="0dp"
@@ -80,11 +85,12 @@
                 android:layout_weight="1"
                 android:orientation="horizontal"
                 tools:ignore="UselessParent">
+
                 <TextView
                     android:id="@+id/valueTotal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="20sp"
+                    android:textSize="@dimen/text_size_20_sp"
                     android:textStyle="bold" />
             </RelativeLayout>
         </LinearLayout>
@@ -93,8 +99,8 @@
             android:id="@+id/recyclerShoppingListRelativeLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingLeft="16dp"
-            android:paddingRight="16dp">
+            android:paddingLeft="@dimen/padding_16_dp"
+            android:paddingRight="@dimen/padding_16_dp">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerShoppingList"
@@ -106,9 +112,6 @@
         <com.google.android.material.divider.MaterialDivider
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="10dp" />
+            android:layout_marginTop="@dimen/margin_10_dp" />
     </LinearLayout>
-
-
-
 </LinearLayout>

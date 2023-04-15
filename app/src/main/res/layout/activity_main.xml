@@ -14,7 +14,7 @@
         android:id="@+id/rltHome"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="60dp">
+        android:layout_marginTop="@dimen/margin_60_dp">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerShopping"
@@ -28,10 +28,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
+        android:orientation="vertical"
         android:visibility="gone"
-        android:orientation="vertical">
+        tools:ignore="UseCompoundDrawables">
 
-        <ImageView
+        <androidx.appcompat.widget.AppCompatImageView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:src="@drawable/empty_cart" />
@@ -40,25 +41,22 @@
             android:id="@+id/emptyState"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="@dimen/margin_15_dp"
             android:text="@string/no_items_yet"
-            android:textSize="18sp"
-            android:textAlignment="center"/>
+            android:textAlignment="center"
+            android:textSize="@dimen/text_size_18_sp" />
     </LinearLayout>
-
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/addShopping"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|right"
-        android:layout_margin="16dp"
-        app:tint="@android:color/white"
+        android:layout_margin="@dimen/margin_16_dp"
         android:backgroundTint="@color/custom_background_color"
         android:contentDescription="@string/add_new"
-        app:elevation="6dp"
+        app:elevation="@dimen/elevation_6_dp"
         app:fabSize="normal"
-        app:srcCompat="@drawable/ic_baseline_add_24" />
-
-
+        app:srcCompat="@drawable/ic_baseline_add_24"
+        app:tint="@android:color/white" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
