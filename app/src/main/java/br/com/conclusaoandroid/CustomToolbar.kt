@@ -24,9 +24,7 @@ class CustomToolbar(context: Context, attrs: AttributeSet?) : ConstraintLayout(c
     }
 
     fun actionToBack(onClick: () -> Unit) {
-        imgIcon.setOnClickListener {
-            onClick()
-        }
+        imgIcon.setOnClickListener { onClick() }
     }
 
     fun getTitleSetup(receivedText: String) {
@@ -34,6 +32,6 @@ class CustomToolbar(context: Context, attrs: AttributeSet?) : ConstraintLayout(c
     }
 
     private fun setTextTitle(receivedText: String) {
-        txtTitle.text = receivedText.toString()
+        txtTitle.text = receivedText
     }
 }

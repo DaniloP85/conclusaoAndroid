@@ -2,4 +2,32 @@
 <resources>
     <dimen name="link_font_size">16sp</dimen>
     <dimen name="header_font_size">16sp</dimen>
+    <dimen name="padding_16_dp">16dp</dimen>
+    <dimen name="padding_10_dp">10dp</dimen>
+    <dimen name="margin_5_dp">5dp</dimen>
+    <dimen name="margin_10_dp">10dp</dimen>
+    <dimen name="radius_8_dp">8dp</dimen>
+    <dimen name="width_2_dp">2dp</dimen>
+    <dimen name="text_size_20_sp">20sp</dimen>
+    <dimen name="margin_16_dp">16dp</dimen>
+    <dimen name="height_180_dp">180dp</dimen>
+    <dimen name="margin_32_dp">32dp</dimen>
+    <dimen name="margin_16_sp">16sp</dimen>
+    <dimen name="margin_32_sp">32sp</dimen>
+    <dimen name="heght_50_dp">50dp</dimen>
+    <dimen name="text_size_18_sp">18sp</dimen>
+    <dimen name="margin_60_dp">60dp</dimen>
+    <dimen name="margin_15_dp">15dp</dimen>
+    <dimen name="elevation_6_dp">6dp</dimen>
+    <dimen name="height_50_dp">50dp</dimen>
+    <dimen name="width_150_dp">150dp</dimen>
+    <dimen name="height_150_dp">150dp</dimen>
+    <dimen name="width_32_dp">32dp</dimen>
+    <dimen name="height_32_dp">32dp</dimen>
+    <dimen name="width_0_dp">0dp</dimen>
+    <dimen name="text_size_30_sp">30sp</dimen>
+    <dimen name="text_size_14_sp">14sp</dimen>
+    <dimen name="height_40_dp">40dp</dimen>
+    <dimen name="width_180_dp">180dp</dimen>
+    <dimen name="width_50_dp">50dp</dimen>
 </resources>

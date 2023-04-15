@@ -1,17 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:background="@color/custom_background_color"
     android:layout_width="match_parent"
-    android:padding="16dp"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:background="@color/custom_background_color"
+    android:padding="@dimen/padding_16_dp">
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/img_icon"
-        android:layout_width="32dp"
-        android:layout_height="32dp"
+        android:layout_width="@dimen/width_32_dp"
+        android:layout_height="@dimen/height_32_dp"
         android:background="@drawable/ic_icon_arrow_back"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -19,12 +17,12 @@
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/txt_title"
-        android:layout_width="0dp"
+        android:layout_width="@dimen/width_0_dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="@dimen/margin_16_dp"
         android:text="@string/textview"
         android:textColor="@color/white"
-        android:textSize="20sp"
+        android:textSize="@dimen/text_size_20_sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/img_icon"
         app:layout_constraintTop_toTopOf="parent" />

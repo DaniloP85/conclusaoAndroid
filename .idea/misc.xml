@@ -22,9 +22,9 @@
         <entry key="app/src/main/res/drawable/ic_baseline_shopping_cart_yellow_48.xml" value="0.2085" />
         <entry key="app/src/main/res/layout/activity_add_edit_list_shopping.xml" value="0.33" />
         <entry key="app/src/main/res/layout/activity_add_edit_shopping_list.xml" value="0.18115942028985507" />
-        <entry key="app/src/main/res/layout/activity_login.xml" value="0.19610507246376813" />
+        <entry key="app/src/main/res/layout/activity_login.xml" value="0.33" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.25" />
-        <entry key="app/src/main/res/layout/activity_register.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activity_register.xml" value="0.33" />
         <entry key="app/src/main/res/layout/activity_splash.xml" value="0.2609375" />
         <entry key="app/src/main/res/layout/alert_dialog_with_edittext.xml" value="0.18115942028985507" />
         <entry key="app/src/main/res/layout/alert_update_items.xml" value="0.2609375" />
