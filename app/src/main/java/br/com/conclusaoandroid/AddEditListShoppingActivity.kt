@@ -12,6 +12,7 @@ import android.text.style.ForegroundColorSpan
 import android.util.Log
 import android.view.MenuItem
 import android.widget.EditText
+import android.widget.Toast
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import br.com.conclusaoandroid.adapter.ShoppingListAdapter
@@ -41,23 +42,13 @@ class AddEditListShoppingActivity : AppCompatActivity() {
 
         setContentView(binding.root)
 
-        val bundle: Bundle? = intent.extras
-        documentId = bundle?.get("documentId").toString()
-        marketplace = bundle?.get("marketPlace").toString()
-        marketDate =  bundle?.get("marketDate").toString()
+        getValuesFromBundle()
+        setupToolbar()
+        setupAdapterShopping(queryShoppingFromFirebase())
+        addProduct()
+    }
 
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.setHomeButtonEnabled(true)
-        supportActionBar?.setBackgroundDrawable(ColorDrawable(Color.parseColor("#0075FF")))
-        supportActionBar?.setTitleColor(Color.WHITE, "$marketplace (${marketDate})")
-
-        val queryShopping = Firebase.firestore
-            .collection("shopping")
-            .document(documentId)
-            .collection("products")
-            .orderBy("description", Query.Direction.ASCENDING)
-            .limit(300)
-
+    private fun setupAdapterShopping(queryShopping: Query) {
         shoppingListAdapter = object :
             ShoppingListAdapter(queryShopping, documentId, { product -> adapterOnClick(product) }) {
 
@@ -88,12 +79,14 @@ class AddEditListShoppingActivity : AppCompatActivity() {
                 }
             }
         }
+    }
 
+    private fun addProduct() {
         binding.addProduct.setOnClickListener {
             val valeText = binding.valueProduct.text.toString()
             val descriptionText = binding.nameProduct.text.toString()
 
-            if (valeText.isBlank() || descriptionText.isBlank()){
+            if (valeText.isBlank() || descriptionText.isBlank()) {
                 CustomToast.warning(this, getString(R.string.fill_in_all_fields))
                 return@setOnClickListener
             }
@@ -102,22 +95,32 @@ class AddEditListShoppingActivity : AppCompatActivity() {
         }
     }
 
-    private fun ActionBar.setTitleColor(color: Int, t: String) {
-        val text = SpannableString(t)
-        text.setSpan(ForegroundColorSpan(color),0,text.length, Spannable.SPAN_INCLUSIVE_INCLUSIVE)
-        title = text
+    private fun queryShoppingFromFirebase(): Query {
+        val queryShopping = Firebase.firestore
+            .collection("shopping")
+            .document(documentId)
+            .collection("products")
+            .orderBy("description", Query.Direction.ASCENDING)
+            .limit(300)
+        return queryShopping
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            android.R.id.home -> {
-                val intent = Intent(this, MainActivity::class.java)
-                startActivity(intent)
-                finish()
-                return true
-            }
-        }
-        return super.onOptionsItemSelected(item)
+    private fun getValuesFromBundle() {
+        val bundle: Bundle? = intent.extras
+        documentId = bundle?.get("documentId").toString()
+        marketplace = bundle?.get("marketPlace").toString()
+        marketDate = bundle?.get("marketDate").toString()
+    }
+
+    private fun setupToolbar() {
+        binding.toolbar.getTitleSetup("$marketplace $marketDate")
+        binding.toolbar.actionToBack { goToBackHome() }
+    }
+
+    private fun goToBackHome() {
+        val intent = Intent(this, MainActivity::class.java)
+        startActivity(intent)
+        finish()
     }
 
     @SuppressLint("LongLogTag")

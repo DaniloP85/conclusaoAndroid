@@ -20,7 +20,7 @@
         <entry key="app/src/main/res/drawable/ic_baseline_shopping_cart_white_24.xml" value="0.2085" />
         <entry key="app/src/main/res/drawable/ic_baseline_shopping_cart_yellow_24.xml" value="0.2085" />
         <entry key="app/src/main/res/drawable/ic_baseline_shopping_cart_yellow_48.xml" value="0.2085" />
-        <entry key="app/src/main/res/layout/activity_add_edit_list_shopping.xml" value="0.1636271529888551" />
+        <entry key="app/src/main/res/layout/activity_add_edit_list_shopping.xml" value="0.33" />
         <entry key="app/src/main/res/layout/activity_add_edit_shopping_list.xml" value="0.18115942028985507" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.19610507246376813" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.25" />
@@ -28,8 +28,9 @@
         <entry key="app/src/main/res/layout/activity_splash.xml" value="0.2609375" />
         <entry key="app/src/main/res/layout/alert_dialog_with_edittext.xml" value="0.18115942028985507" />
         <entry key="app/src/main/res/layout/alert_update_items.xml" value="0.2609375" />
+        <entry key="app/src/main/res/layout/custom_toolbar.xml" value="0.353125" />
         <entry key="app/src/main/res/layout/fragment_main.xml" value="0.22" />
-        <entry key="app/src/main/res/layout/shopping_item.xml" value="0.14322916666666666" />
+        <entry key="app/src/main/res/layout/shopping_item.xml" value="0.33" />
         <entry key="app/src/main/res/layout/shopping_list_item.xml" value="0.33152173913043476" />
         <entry key="app/src/main/res/layout/toolbar.xml" value="0.19610507246376813" />
       </map>
