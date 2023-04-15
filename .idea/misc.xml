@@ -20,7 +20,7 @@
         <entry key="app/src/main/res/drawable/ic_baseline_shopping_cart_white_24.xml" value="0.2085" />
         <entry key="app/src/main/res/drawable/ic_baseline_shopping_cart_yellow_24.xml" value="0.2085" />
         <entry key="app/src/main/res/drawable/ic_baseline_shopping_cart_yellow_48.xml" value="0.2085" />
-        <entry key="app/src/main/res/layout/activity_add_edit_list_shopping.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/activity_add_edit_list_shopping.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_add_edit_shopping_list.xml" value="0.18115942028985507" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.33" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.25" />
