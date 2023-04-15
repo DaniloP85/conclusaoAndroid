@@ -2,7 +2,6 @@ package br.com.conclusaoandroid
 
 import android.content.Context
 import android.util.AttributeSet
-import android.widget.Toast
 import androidx.appcompat.widget.AppCompatButton
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.constraintlayout.widget.ConstraintLayout

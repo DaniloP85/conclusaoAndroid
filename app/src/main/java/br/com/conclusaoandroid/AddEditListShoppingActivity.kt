@@ -3,18 +3,11 @@ package br.com.conclusaoandroid
 import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.Intent
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.text.Spannable
-import android.text.SpannableString
-import android.text.style.ForegroundColorSpan
 import android.util.Log
-import android.view.MenuItem
 import android.widget.EditText
-import android.widget.Toast
-import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import br.com.conclusaoandroid.adapter.ShoppingListAdapter
 import br.com.conclusaoandroid.databinding.ActivityAddEditListShoppingBinding
 import br.com.conclusaoandroid.model.Product
@@ -38,7 +31,8 @@ class AddEditListShoppingActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityAddEditListShoppingBinding.inflate(layoutInflater)
 
-        window.statusBarColor = Color.parseColor("#0075FF")
+        supportActionBar?.hide()
+        window.statusBarColor = ContextCompat.getColor(baseContext, R.color.status_bar)
 
         setContentView(binding.root)
 
@@ -96,13 +90,12 @@ class AddEditListShoppingActivity : AppCompatActivity() {
     }
 
     private fun queryShoppingFromFirebase(): Query {
-        val queryShopping = Firebase.firestore
+        return Firebase.firestore
             .collection("shopping")
             .document(documentId)
             .collection("products")
             .orderBy("description", Query.Direction.ASCENDING)
             .limit(300)
-        return queryShopping
     }
 
     private fun getValuesFromBundle() {

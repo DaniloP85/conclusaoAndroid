@@ -2,16 +2,15 @@ package br.com.conclusaoandroid
 
 import android.content.ContentValues.TAG
 import android.content.Intent
-import android.graphics.Color
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import br.com.conclusaoandroid.common.Utils
 import br.com.conclusaoandroid.databinding.ActivityRegisterBinding
-import com.google.firebase.auth.FirebaseAuth
-
 import com.example.mobcompoents.cusomtoast.CustomToast
+import com.google.firebase.auth.FirebaseAuth
 
 class Register : AppCompatActivity() {
     private lateinit var binding: ActivityRegisterBinding
@@ -22,7 +21,7 @@ class Register : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityRegisterBinding.inflate(layoutInflater)
 
-        window.statusBarColor = Color.parseColor("#0075FF")
+        window.statusBarColor = ContextCompat.getColor(baseContext, R.color.status_bar)
 
         val view = binding.root
         setContentView(view)

@@ -3,12 +3,12 @@ package br.com.conclusaoandroid
 import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.Intent
-import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import br.com.conclusaoandroid.adapter.ShoppingAdapter
 import br.com.conclusaoandroid.databinding.ActivityMainBinding
 import br.com.conclusaoandroid.model.Shopping
@@ -30,7 +30,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
 
-        window.statusBarColor = Color.parseColor("#0075FF")
+        window.statusBarColor = ContextCompat.getColor(baseContext, R.color.status_bar)
 
         val view = binding.root
         setContentView(view)
