@@ -4,69 +4,70 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:gravity="center"
-    android:padding="16dp"
+    android:orientation="vertical"
+    android:padding="@dimen/padding_16_dp"
     tools:context=".Login">
 
-    <ImageView
+    <androidx.appcompat.widget.AppCompatImageView
         android:layout_width="match_parent"
-        android:layout_height="180dp"
-        android:src="@drawable/ic_baseline_shopping_cart_24"
-        android:layout_marginBottom="32dp" />
+        android:layout_height="@dimen/height_180_dp"
+        android:layout_marginBottom="@dimen/margin_32_dp"
+        android:src="@drawable/ic_baseline_shopping_cart_24" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/email"
-            android:hint="@string/email"
-            android:inputType="textEmailAddress"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:hint="@string/email"
+            android:inputType="textEmailAddress" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16sp"
+        android:layout_marginTop="@dimen/margin_16_sp"
         android:orientation="vertical">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/password"
-            android:inputType="textPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/password" />
+            android:hint="@string/password"
+            android:inputType="textPassword" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <ProgressBar
         android:id="@+id/progressBarLogin"
-        android:visibility="gone"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:visibility="gone" />
 
     <Button
         android:id="@+id/btnLogin"
-        android:layout_marginTop="32sp"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="@dimen/heght_50_dp"
+        android:layout_marginTop="@dimen/margin_32_sp"
         android:backgroundTint="@color/custom_background_color"
-        app:cornerRadius="8dp"
-        app:rippleColor="#33AAAAAA"
-        app:strokeColor="@color/custom_background_color"
-        app:strokeWidth="2dp"
-        android:textSize="20sp"
-        android:textStyle="bold"
+        android:text="@string/login"
         android:textColor="@color/white"
-        android:text="@string/login"/>
+        android:textSize="@dimen/text_size_20_sp"
+        android:textStyle="bold"
+        app:cornerRadius="@dimen/radius_8_dp"
+        app:rippleColor="@color/gray_strong"
+        app:strokeColor="@color/custom_background_color"
+        app:strokeWidth="@dimen/width_2_dp" />
 
     <TextView
         android:id="@+id/registerNow"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="@dimen/margin_32_dp"
+        android:gravity="center"
         android:text="@string/click_to_register"
-        android:textSize="18sp"
-        android:gravity="center"/>
+        android:textSize="@dimen/text_size_18_sp" />
 </LinearLayout>

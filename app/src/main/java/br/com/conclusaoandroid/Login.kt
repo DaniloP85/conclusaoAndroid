@@ -2,11 +2,11 @@ package br.com.conclusaoandroid
 
 import android.content.ContentValues.TAG
 import android.content.Intent
-import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import androidx.core.content.ContextCompat
 import br.com.conclusaoandroid.common.Utils
 import br.com.conclusaoandroid.databinding.ActivityLoginBinding
 import com.google.firebase.auth.FirebaseAuth
@@ -22,7 +22,7 @@ class Login : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
 
-        window.statusBarColor = Color.parseColor("#0075FF")
+        window.statusBarColor = ContextCompat.getColor(baseContext, R.color.status_bar)
 
         val view = binding.root
         setContentView(view)
