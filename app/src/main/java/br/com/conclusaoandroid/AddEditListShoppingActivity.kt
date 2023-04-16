@@ -100,9 +100,9 @@ class AddEditListShoppingActivity : AppCompatActivity() {
 
     private fun getValuesFromBundle() {
         val bundle: Bundle? = intent.extras
-        documentId = bundle?.get("documentId").toString()
-        marketplace = bundle?.get("marketPlace").toString()
-        marketDate = bundle?.get("marketDate").toString()
+        documentId = bundle?.getString("documentId").toString()
+        marketplace = bundle?.getString("marketPlace").toString()
+        marketDate = bundle?.getString("marketDate").toString()
     }
 
     private fun setupToolbar() {
