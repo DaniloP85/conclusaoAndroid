@@ -26,5 +26,6 @@
     <string name="fill_in_all_fields">Fill in all fields</string>
     <string name="no_items_yet">No items yet</string>
     <string name="type_here">type here</string>
+    <string name="unit">Unit</string>
     <string name="textview">TextView</string>
 </resources>

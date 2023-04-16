@@ -11,12 +11,24 @@
         android:layout_height="wrap_content"
         android:width="@dimen/cardview_compat_inset_shadow"
         android:hint="@string/type_here" />
-
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_height="wrap_content">
     <androidx.appcompat.widget.AppCompatEditText
         android:id="@+id/editTextValue"
+        android:layout_width="@dimen/width_180_dp"
+        android:layout_height="wrap_content"
+        android:width="@dimen/cardview_compat_inset_shadow"
+        android:hint="@string/type_here"
+        android:inputType="numberDecimal" />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/editTextUnit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:width="@dimen/cardview_compat_inset_shadow"
         android:hint="@string/type_here"
         android:inputType="numberDecimal" />
+    </LinearLayout>
 </LinearLayout>

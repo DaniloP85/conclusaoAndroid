@@ -38,6 +38,7 @@ class AddEditListShoppingActivity : AppCompatActivity() {
 
         getValuesFromBundle()
         setupToolbar()
+
         setupAdapterShopping(queryShoppingFromFirebase())
         addProduct()
     }
@@ -60,7 +61,7 @@ class AddEditListShoppingActivity : AppCompatActivity() {
                     var amount = 0.0
                     for (item in allProducts) {
                         val itemObject = item.toObject<Product>()
-                        amount += itemObject?.value!!
+                        amount += itemObject?.value!! * itemObject.unit!!
                     }
                     binding.recyclerShoppingList.adapter = shoppingListAdapter
                     val format: NumberFormat = NumberFormat.getCurrencyInstance()
@@ -77,15 +78,22 @@ class AddEditListShoppingActivity : AppCompatActivity() {
 
     private fun addProduct() {
         binding.addProduct.setOnClickListener {
-            val valeText = binding.valueProduct.text.toString()
+            val valueText = binding.valueProduct.text.toString()
             val descriptionText = binding.nameProduct.text.toString()
+            val valueUnit = binding.unit.text.toString()
 
-            if (valeText.isBlank() || descriptionText.isBlank()) {
+            if (valueText.isBlank() || descriptionText.isBlank()) {
                 CustomToast.warning(this, getString(R.string.fill_in_all_fields))
                 return@setOnClickListener
             }
 
-            addProduct(valeText.toDouble(), descriptionText)
+            var intValueUnit = 1
+
+            if (valueUnit.isNotBlank()){
+                intValueUnit = valueUnit.toInt()
+            }
+
+            addProduct(valueText.toDouble(), descriptionText, intValueUnit)
         }
     }
 
@@ -124,20 +132,25 @@ class AddEditListShoppingActivity : AppCompatActivity() {
         val dialogLayout = inflater.inflate(R.layout.alert_update_items, null)
         val editTextDescription = dialogLayout.findViewById<EditText>(R.id.editTextDescription)
         val editTextValue = dialogLayout.findViewById<EditText>(R.id.editTextValue)
+        val editTextUnit = dialogLayout.findViewById<EditText>(R.id.editTextUnit)
         builder.setTitle(getString(R.string.update_register))
         editTextDescription.setText(productCurrent.description)
         editTextValue.setText(productCurrent.value.toString())
+        editTextUnit.setText(productCurrent.unit.toString())
 
         builder.setView(dialogLayout)
         builder.setPositiveButton(getString(R.string.edit)) { _, _ ->
-            if (editTextDescription.text.isNotBlank() && editTextValue.text.isNotBlank()) {
+            if (editTextDescription.text.isNotBlank() && editTextValue.text.isNotBlank() && editTextUnit.text.isNotBlank()) {
+
+                val unitText = editTextUnit.text.toString()
+
 
                 Firebase.firestore
                     .collection("shopping")
                     .document(documentId)
                     .collection("products")
                     .document(productCurrent.documentId.toString())
-                    .update("description", editTextDescription.text.toString(),"value", editTextValue.text.toString().toDouble() )
+                    .update("description", editTextDescription.text.toString(),"value", editTextValue.text.toString().toDouble(), "unit", unitText.toInt())
                     .addOnSuccessListener {
                         Log.d(TAG,":)")
                         CustomToast.success( this, getString(R.string.registered_successfully) )
@@ -168,11 +181,12 @@ class AddEditListShoppingActivity : AppCompatActivity() {
     }
 
     @SuppressLint("LongLogTag")
-    private fun addProduct(value: Double, description: String) {
+    private fun addProduct(value: Double, description: String, unit: Int) {
 
         val product = hashMapOf(
             "description" to description,
-            "value" to value
+            "value" to value,
+            "unit" to unit
         )
 
         Firebase.firestore
@@ -184,6 +198,7 @@ class AddEditListShoppingActivity : AppCompatActivity() {
                 CustomToast.success(this, getString(R.string.registered_successfully))
                 binding.valueProduct.setText("")
                 binding.nameProduct.setText("")
+                binding.unit.setText("")
                 binding.nameProduct.requestFocus()
                 Log.d(TAG, "DocumentSnapshot written with ID: ${documentReference.id}")
             }

@@ -27,4 +27,6 @@
     <string name="fill_in_all_fields">Preencha todos os campos</string>
     <string name="no_items_yet">Ainda não há itens</string>
     <string name="type_here">Digite aqui</string>
+    <string name="unit">Unidade</string>
+    <string name="textview">TextView</string>
 </resources>

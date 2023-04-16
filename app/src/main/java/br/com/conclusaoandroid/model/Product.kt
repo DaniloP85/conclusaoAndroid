@@ -7,4 +7,5 @@ data class Product (
     val description: String? = null,
     val value: Double? = null,
     var documentId:  String? = null,
+    val unit: Int? = null,
 )
