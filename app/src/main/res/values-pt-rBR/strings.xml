@@ -26,5 +26,8 @@
     <string name="enter_market_name">Digite o nome do mercado</string>
     <string name="fill_in_all_fields">Preencha todos os campos</string>
     <string name="no_items_yet">Ainda não há itens</string>
-    <string name="type_here">Digite aqui</string>
+    <string name="enter_new_value">Valor</string>
+    <string name="enter_new_description">Descrição</string>
+    <string name="description">Descrição</string>
+    <string name="title">Título</string>
 </resources>

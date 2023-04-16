@@ -18,21 +18,21 @@
             android:baselineAligned="false">
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="@dimen/width_150_dp"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/marketplace"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/margin_10_dp"
-                    android:text="@string/textview"
-                    android:textSize="@dimen/text_size_30_sp" />
+                    android:text="@string/market_name"
+                    android:textSize="@dimen/text_size_25_sp" />
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/date"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/margin_10_dp"
                     android:text=""
@@ -40,7 +40,7 @@
             </LinearLayout>
 
             <RelativeLayout
-                android:layout_width="match_parent"
+                android:layout_width="@dimen/width_40_dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
@@ -48,15 +48,15 @@
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/value"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:gravity="center"
-                    android:textSize="@dimen/text_size_20_sp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:textSize="@dimen/text_size_15_sp"
                     android:textStyle="bold" />
             </RelativeLayout>
 
             <RelativeLayout
-                android:layout_width="match_parent"
+                android:layout_width="@dimen/width_30_dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center|end"
@@ -88,9 +88,9 @@
         <com.google.android.material.divider.MaterialDivider
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginLeft="@dimen/margin_16_dp"
+            android:layout_marginLeft="@dimen/margin_10_dp"
             android:layout_marginTop="@dimen/margin_10_dp"
-            android:layout_marginRight="@dimen/margin_16_dp" />
+            android:layout_marginRight="@dimen/margin_10_dp" />
 
     </LinearLayout>
 

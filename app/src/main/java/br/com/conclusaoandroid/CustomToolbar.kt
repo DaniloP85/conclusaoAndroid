@@ -12,7 +12,7 @@ class CustomToolbar(context: Context, attrs: AttributeSet?) : ConstraintLayout(c
     private var txtTitle: AppCompatTextView = AppCompatTextView(context)
 
     init {
-        inflate(context, R.layout.custom_toolbar, this)
+        inflate(context, R.layout.toolbar_custom_add, this)
 
         val attributes = context.obtainStyledAttributes(attrs, R.styleable.CustomToolbar)
 

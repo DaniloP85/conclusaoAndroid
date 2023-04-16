@@ -100,8 +100,8 @@ class MainActivity : AppCompatActivity() {
         val builder = AlertDialog.Builder(this)
         val inflater = layoutInflater
         builder.setTitle(title)
-        val dialogLayout = inflater.inflate(R.layout.alert_dialog_with_edittext, null)
-        val editText = dialogLayout.findViewById<EditText>(R.id.editText)
+        val dialogLayout = inflater.inflate(R.layout.alert_add_market, null)
+        val editText = dialogLayout.findViewById<EditText>(R.id.enterMarketName)
 
         if (textInputAlert.isNotBlank()) {
             editText.setText(textInputAlert)

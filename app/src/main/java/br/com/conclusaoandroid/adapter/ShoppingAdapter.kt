@@ -43,16 +43,20 @@ open class ShoppingAdapter(
 
             binding.marketplace.text = shopping.marketplace
 
+            val format: NumberFormat = NumberFormat.getCurrencyInstance()
+            format.maximumFractionDigits = 2
+            format.setCurrency(Currency.getInstance("BRL")).toString()
+            binding.value.text = format.format(shopping.total)
+
+            //binding.marketplace.text = "${shopping.marketplace} | ${format.format(shopping.total)}"
+
             val pattern = "dd/MM/yyyy"
             val simpleDateFormat = SimpleDateFormat(pattern)
             val date = shopping.date?.toDate()?.let { simpleDateFormat.format(it) }
 
             binding.date.text = date
 
-            val format: NumberFormat = NumberFormat.getCurrencyInstance()
-            format.maximumFractionDigits = 2
-            format.setCurrency(Currency.getInstance("BRL")).toString()
-            binding.value.text = format.format(shopping.total)
+
 
             binding.removeShopping.setOnClickListener {
                 removeShopping(shopping, snapshotId)
