@@ -9,8 +9,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import br.com.conclusaoandroid.common.Utils
 import br.com.conclusaoandroid.databinding.ActivityRegisterBinding
-import com.example.mobcompoents.cusomtoast.CustomToast
 import com.google.firebase.auth.FirebaseAuth
+import com.samuelribeiro.mycomponents.CustomToast
 
 class Register : AppCompatActivity() {
     private lateinit var binding: ActivityRegisterBinding
