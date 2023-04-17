@@ -77,15 +77,17 @@ class AddEditListShoppingActivity : AppCompatActivity() {
 
     private fun addProduct() {
         binding.addProduct.setOnClickListener {
-            val valeText = binding.valueProduct.text.toString()
-            val descriptionText = binding.nameProduct.text.toString()
-
-            if (valeText.isBlank() || descriptionText.isBlank()) {
-                CustomToast.warning(this, getString(R.string.fill_in_all_fields))
-                return@setOnClickListener
-            }
-
-            addProduct(valeText.toDouble(), descriptionText)
+//            val valeText = binding.valueProduct.text.toString()
+//            val descriptionText = binding.nameProduct.text.toString()
+//
+//            if (valeText.isBlank() || descriptionText.isBlank()) {
+//                CustomToast.warning(this, getString(R.string.fill_in_all_fields))
+//                return@setOnClickListener
+//            }
+//
+//            addProduct(valeText.toDouble(), descriptionText)
+            val dialog = CustomDialogFragment()
+            dialog.show(supportFragmentManager, dialog.tag)
         }
     }
 
