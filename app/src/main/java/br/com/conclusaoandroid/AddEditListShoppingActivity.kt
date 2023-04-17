@@ -86,7 +86,7 @@ class AddEditListShoppingActivity : AppCompatActivity() {
 //            }
 //
 //            addProduct(valeText.toDouble(), descriptionText)
-            val dialog = CustomDialogFragment()
+            val dialog = AddEditListShoppingDialogFragment()
             dialog.show(supportFragmentManager, dialog.tag)
         }
     }

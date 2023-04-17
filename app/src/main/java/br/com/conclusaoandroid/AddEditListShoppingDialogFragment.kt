@@ -3,19 +3,19 @@ package br.com.conclusaoandroid
 import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.DialogFragment
-import br.com.conclusaoandroid.databinding.DialogCreatedBinding
+import br.com.conclusaoandroid.databinding.DialogfragmentAddEditListShoppingBinding
 import com.samuelribeiro.mycomponents.CustomToast
 
-class CustomDialogFragment : DialogFragment() {
+class AddEditListShoppingDialogFragment : DialogFragment() {
 
-    private lateinit var binding: DialogCreatedBinding
+    private lateinit var binding: DialogfragmentAddEditListShoppingBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = DialogCreatedBinding.inflate(inflater)
+        binding = DialogfragmentAddEditListShoppingBinding.inflate(inflater)
         return binding.root
     }
 
