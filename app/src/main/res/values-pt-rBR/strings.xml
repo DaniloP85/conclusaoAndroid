@@ -30,4 +30,5 @@
     <string name="enter_new_description">Descrição</string>
     <string name="description">Descrição</string>
     <string name="title">Título</string>
+    <string name="amount">Quantidade</string>
 </resources>

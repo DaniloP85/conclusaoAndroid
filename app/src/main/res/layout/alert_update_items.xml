@@ -13,12 +13,27 @@
         android:width="@dimen/cardview_compat_inset_shadow"
         android:hint="@string/enter_new_description" />
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_height="wrap_content">
+
     <androidx.appcompat.widget.AppCompatEditText
         android:id="@+id/editTextValue"
-        android:layout_width="match_parent"
+        android:layout_width="@dimen/width_180_dp"
         android:layout_height="wrap_content"
         android:width="@dimen/cardview_compat_inset_shadow"
         android:hint="@string/enter_new_value"
         android:maxLength="8"
         android:inputType="numberDecimal" />
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/editTextValueAmount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:width="@dimen/cardview_compat_inset_shadow"
+            android:hint="@string/amount"
+            android:maxLength="8"
+            android:inputType="numberDecimal" />
+    </LinearLayout>
 </LinearLayout>

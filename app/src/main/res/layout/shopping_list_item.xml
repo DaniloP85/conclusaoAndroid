@@ -29,7 +29,16 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/margin_10_dp"
-                    android:text="@string/description" />
+                    android:text="@string/description"
+                    tools:ignore="RtlHardcoded" />
+
+                <TextView
+                    android:id="@+id/descriptionCalc"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/margin_10_dp"
+                    android:text="@string/description"
+                    tools:ignore="RtlHardcoded" />
             </LinearLayout>
 
             <RelativeLayout
@@ -37,7 +46,8 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center|right"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                tools:ignore="RtlHardcoded">
 
                 <TextView
                     android:id="@+id/valueList"
@@ -68,7 +78,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="@dimen/margin_10_dp"
-            android:layout_marginRight="@dimen/margin_16_dp" />
+            android:layout_marginRight="@dimen/margin_16_dp"
+            tools:ignore="RtlHardcoded" />
 
     </LinearLayout>
 

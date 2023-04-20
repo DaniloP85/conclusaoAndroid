@@ -28,15 +28,17 @@ open class ShoppingListAdapter(query: Query, private val documentIdFather: Strin
             }
         }
 
-        fun bind(word: Product, snapshotId: String) {
+        @SuppressLint("SetTextI18n")
+        fun bind(product: Product, snapshotId: String) {
 
-            currentProduct = word
+            currentProduct = product
             currentProduct?.documentId = snapshotId
-            binding.description.text = word.description
+            binding.description.text = product.description
             val format: NumberFormat = NumberFormat.getCurrencyInstance()
             format.maximumFractionDigits = 2
             format.setCurrency(Currency.getInstance("BRL")).toString()
-            binding.valueList.text = format.format(word.value)
+            binding.valueList.text = format.format(product.purchaseValue)
+            binding.descriptionCalc.text = "${product.value} x ${product.amount}"
 
             binding.removeProduct.setOnClickListener{
                 removeProduct(documentIdFather, snapshotId)

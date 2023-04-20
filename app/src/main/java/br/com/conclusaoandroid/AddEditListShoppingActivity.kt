@@ -18,6 +18,7 @@ import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
 import java.text.NumberFormat
 import java.util.*
+import kotlin.math.roundToInt
 
 class AddEditListShoppingActivity : AppCompatActivity() {
 
@@ -60,7 +61,7 @@ class AddEditListShoppingActivity : AppCompatActivity() {
                     var amount = 0.0
                     for (item in allProducts) {
                         val itemObject = item.toObject<Product>()
-                        amount += itemObject?.value!!
+                        amount += itemObject?.purchaseValue!!
                     }
                     binding.recyclerShoppingList.adapter = shoppingListAdapter
                     val format: NumberFormat = NumberFormat.getCurrencyInstance()
@@ -79,13 +80,16 @@ class AddEditListShoppingActivity : AppCompatActivity() {
         binding.addProduct.setOnClickListener {
             val valeText = binding.valueProduct.text.toString()
             val descriptionText = binding.nameProduct.text.toString()
+            val amountText = binding.valueAmount.text.toString()
 
             if (valeText.isBlank() || descriptionText.isBlank()) {
                 CustomToast.warning(this, getString(R.string.fill_in_all_fields))
                 return@setOnClickListener
             }
 
-            addProduct(valeText.toDouble(), descriptionText)
+            val amount = validAmount(amountText)
+
+            addProduct(valeText.toDouble(), descriptionText, amount)
         }
     }
 
@@ -124,20 +128,29 @@ class AddEditListShoppingActivity : AppCompatActivity() {
         val dialogLayout = inflater.inflate(R.layout.alert_update_items, null)
         val editTextDescription = dialogLayout.findViewById<EditText>(R.id.editTextDescription)
         val editTextValue = dialogLayout.findViewById<EditText>(R.id.editTextValue)
+        val editTextAmount = dialogLayout.findViewById<EditText>(R.id.editTextValueAmount)
         builder.setTitle(getString(R.string.update_register))
         editTextDescription.setText(productCurrent.description)
         editTextValue.setText(productCurrent.value.toString())
+        editTextAmount.setText(productCurrent.amount.toString())
 
         builder.setView(dialogLayout)
         builder.setPositiveButton(getString(R.string.edit)) { _, _ ->
-            if (editTextDescription.text.isNotBlank() && editTextValue.text.isNotBlank()) {
+            if (editTextDescription.text.isNotBlank() && editTextValue.text.isNotBlank() && editTextAmount.text.isNotBlank()) {
+
+                val textAmount = editTextAmount.text.toString()
+                val value = editTextValue.text.toString()
+                val amount = validAmount(textAmount)
+                val purchaseValue = calcPurchaseValue(amount, value.toDouble())
 
                 Firebase.firestore
                     .collection("shopping")
                     .document(documentId)
                     .collection("products")
                     .document(productCurrent.documentId.toString())
-                    .update("description", editTextDescription.text.toString(),"value", editTextValue.text.toString().toDouble() )
+                    .update(
+                        "description", editTextDescription.text.toString(),
+                        "value", editTextValue.text.toString().toDouble(), "amount", amount, "purchaseValue", purchaseValue )
                     .addOnSuccessListener {
                         Log.d(TAG,":)")
                         CustomToast.success( this, getString(R.string.registered_successfully) )
@@ -156,11 +169,13 @@ class AddEditListShoppingActivity : AppCompatActivity() {
 
     @SuppressLint("LongLogTag")
     private fun updateTotalShopping(value: Double) {
+        val ok = ((value * 100.0).roundToInt() / 100.0)
+
         Firebase
             .firestore
             .collection("shopping")
             .document(documentId)
-            .update("total", value)
+            .update("total", ok)
             .addOnSuccessListener {
                 Log.d(TAG,":)")
             }.addOnFailureListener { e -> Log.d(TAG, ":( :: $e") }
@@ -168,11 +183,15 @@ class AddEditListShoppingActivity : AppCompatActivity() {
     }
 
     @SuppressLint("LongLogTag")
-    private fun addProduct(value: Double, description: String) {
+    private fun addProduct(value: Double, description: String, amount: Int) {
+
+        val purchaseValue = calcPurchaseValue(amount, value)
 
         val product = hashMapOf(
             "description" to description,
-            "value" to value
+            "value" to value,
+            "amount" to amount,
+            "purchaseValue" to purchaseValue
         )
 
         Firebase.firestore
@@ -184,12 +203,31 @@ class AddEditListShoppingActivity : AppCompatActivity() {
                 CustomToast.success(this, getString(R.string.registered_successfully))
                 binding.valueProduct.setText("")
                 binding.nameProduct.setText("")
+                binding.valueAmount.setText("")
                 binding.nameProduct.requestFocus()
                 Log.d(TAG, "DocumentSnapshot written with ID: ${documentReference.id}")
             }
             .addOnFailureListener { e ->
                 Log.e(TAG, "Error adding document", e)
             }
+    }
+
+    private fun calcPurchaseValue(amount:Int, value: Double): Double {
+        val purchaseValue = amount * value
+        return (purchaseValue * 100.0).roundToInt() / 100.0
+    }
+
+    private fun validAmount (textAmount:String): Int {
+
+        if (textAmount.isBlank()){
+            return 1
+        }
+
+        if (textAmount.toInt() == 0){
+            return 1
+        }
+
+        return textAmount.toInt()
     }
 
     public override fun onStart() {
