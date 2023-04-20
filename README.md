@@ -38,10 +38,5 @@ dispositivo de teste: Android O (Google Pixel 2)
 Certifique-se de que seu dispositivo tenha a versão Android >= 21.
 ```
 
-## Tela A
-![.](readme/android.gif)
-## Tela B
-
-
-## Tela C
+## Telas
 

@@ -9,13 +9,14 @@ import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import br.com.conclusaoandroid.adapter.ShoppingListAdapter
+import br.com.conclusaoandroid.common.Utils
 import br.com.conclusaoandroid.databinding.ActivityAddEditListShoppingBinding
 import br.com.conclusaoandroid.model.Product
-import com.example.mobcompoents.cusomtoast.CustomToast
 import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
+import com.samuelribeiro.mycomponents.CustomToast
 import java.text.NumberFormat
 import java.util.*
 import kotlin.math.roundToInt
@@ -78,18 +79,21 @@ class AddEditListShoppingActivity : AppCompatActivity() {
 
     private fun addProduct() {
         binding.addProduct.setOnClickListener {
-            val valeText = binding.valueProduct.text.toString()
+            val valueProduct = binding.valueProduct.text.toString()
             val descriptionText = binding.nameProduct.text.toString()
             val amountText = binding.valueAmount.text.toString()
 
-            if (valeText.isBlank() || descriptionText.isBlank()) {
+            if (valueProduct.isBlank() || descriptionText.isBlank()) {
                 CustomToast.warning(this, getString(R.string.fill_in_all_fields))
                 return@setOnClickListener
             }
 
-            val amount = validAmount(amountText)
+            val amount = Utils.validAmount(amountText)
 
-            addProduct(valeText.toDouble(), descriptionText, amount)
+            addProduct(valueProduct.toDouble(), descriptionText, amount)
+            // TODO: Samuel testando o componente
+            // val dialog = AddEditListShoppingDialogFragment()
+            // dialog.show(supportFragmentManager, dialog.tag)
         }
     }
 
@@ -104,9 +108,9 @@ class AddEditListShoppingActivity : AppCompatActivity() {
 
     private fun getValuesFromBundle() {
         val bundle: Bundle? = intent.extras
-        documentId = bundle?.get("documentId").toString()
-        marketplace = bundle?.get("marketPlace").toString()
-        marketDate = bundle?.get("marketDate").toString()
+        documentId = bundle?.getString("documentId").toString()
+        marketplace = bundle?.getString("marketPlace").toString()
+        marketDate = bundle?.getString("marketDate").toString()
     }
 
     private fun setupToolbar() {
@@ -140,8 +144,8 @@ class AddEditListShoppingActivity : AppCompatActivity() {
 
                 val textAmount = editTextAmount.text.toString()
                 val value = editTextValue.text.toString()
-                val amount = validAmount(textAmount)
-                val purchaseValue = calcPurchaseValue(amount, value.toDouble())
+                val amount = Utils.validAmount(textAmount)
+                val purchaseValue = Utils.calcPurchaseValue(amount, value.toDouble())
 
                 Firebase.firestore
                     .collection("shopping")
@@ -169,13 +173,13 @@ class AddEditListShoppingActivity : AppCompatActivity() {
 
     @SuppressLint("LongLogTag")
     private fun updateTotalShopping(value: Double) {
-        val ok = ((value * 100.0).roundToInt() / 100.0)
+        val total = Utils.rounding(value)
 
         Firebase
             .firestore
             .collection("shopping")
             .document(documentId)
-            .update("total", ok)
+            .update("total", total)
             .addOnSuccessListener {
                 Log.d(TAG,":)")
             }.addOnFailureListener { e -> Log.d(TAG, ":( :: $e") }
@@ -185,7 +189,7 @@ class AddEditListShoppingActivity : AppCompatActivity() {
     @SuppressLint("LongLogTag")
     private fun addProduct(value: Double, description: String, amount: Int) {
 
-        val purchaseValue = calcPurchaseValue(amount, value)
+        val purchaseValue = Utils.calcPurchaseValue(amount, value)
 
         val product = hashMapOf(
             "description" to description,
@@ -210,24 +214,6 @@ class AddEditListShoppingActivity : AppCompatActivity() {
             .addOnFailureListener { e ->
                 Log.e(TAG, "Error adding document", e)
             }
-    }
-
-    private fun calcPurchaseValue(amount:Int, value: Double): Double {
-        val purchaseValue = amount * value
-        return (purchaseValue * 100.0).roundToInt() / 100.0
-    }
-
-    private fun validAmount (textAmount:String): Int {
-
-        if (textAmount.isBlank()){
-            return 1
-        }
-
-        if (textAmount.toInt() == 0){
-            return 1
-        }
-
-        return textAmount.toInt()
     }
 
     public override fun onStart() {

@@ -12,11 +12,11 @@ import androidx.core.content.ContextCompat
 import br.com.conclusaoandroid.adapter.ShoppingAdapter
 import br.com.conclusaoandroid.databinding.ActivityMainBinding
 import br.com.conclusaoandroid.model.Shopping
-import com.example.mobcompoents.cusomtoast.CustomToast
 import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.samuelribeiro.mycomponents.CustomToast
 import java.text.SimpleDateFormat
 
 class MainActivity : AppCompatActivity() {

@@ -3,11 +3,6 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/lucil/Documents/Danilo/conclusaoAndroid/app/src/main/res/layout/activity_add_edit_list_shopping.xml" value="0.264" />
-        <entry key="..\:/Users/lucil/Documents/Danilo/conclusaoAndroid/app/src/main/res/layout/alert_add_market.xml" value="0.25" />
-        <entry key="..\:/Users/lucil/Documents/Danilo/conclusaoAndroid/app/src/main/res/layout/alert_update_items.xml" value="0.1644021739130435" />
-        <entry key="..\:/Users/lucil/Documents/Danilo/conclusaoAndroid/app/src/main/res/layout/shopping_item.xml" value="0.2" />
-        <entry key="..\:/Users/lucil/Documents/Danilo/conclusaoAndroid/app/src/main/res/layout/shopping_list_item.xml" value="0.2" />
         <entry key="app/src/main/res/layout/activity_add_edit_list_shopping.xml" value="0.2609375" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.2609375" />
         <entry key="app/src/main/res/layout/toolbar_custom_add.xml" value="0.2609375" />
