@@ -28,8 +28,7 @@ O desenvolvimento diário é feito no ramo de desenvolvimento. Características,
 correções de bugs e outras tarefas são feitas como ramificações do desenvolvimento,
 em seguida, mesclado de volta ao desenvolvimento diretamente ou por meio de solicitações pull.
 
-Mantenha os commits atômicos e autoexplicativos, use o rebase para limpar
-até ramificações confusas antes de se fundir novamente no desenvolvimento.
+Mantenha os commits atômicos e autoexplicativos, use o rebase para limpar até ramificações confusas antes de se fundir novamente no desenvolvimento.
 
 ## Ambiente de teste
 ```
@@ -39,6 +38,12 @@ Certifique-se de que seu dispositivo tenha a versão Android >= 21.
 ```
 
 ## Telas
+
 ![.](readme/android.gif)
 
+## Próxima funcionalidades
 
+Implementar um botão para leitura de código de barras, utilizando a câmera  do dispositivo, após pegar o código de barras
+podemos utiliziar a API do [GS1](https://www.gs1br.org/) para recuperar a descrição do produto.
+
+Implementar o [Swipe](https://developer.android.com/guide/navigation/navigation-swipe-view?hl=pt-br) para deletar os itens da listas compras e produtos.
