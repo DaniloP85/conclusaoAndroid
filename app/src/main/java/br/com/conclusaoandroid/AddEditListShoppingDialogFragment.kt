@@ -41,7 +41,7 @@ class AddEditListShoppingDialogFragment : DialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.dialogTest.setTitleDialog("Adicionar Produto")
+        binding.dialogTest.setTitleDialog(getString(R.string.add_product))
         binding.dialogTest.setTextFirstField(productName)
         binding.dialogTest.setTextSecondField(productValue)
         binding.dialogTest.setOnClickButtonPositive {
