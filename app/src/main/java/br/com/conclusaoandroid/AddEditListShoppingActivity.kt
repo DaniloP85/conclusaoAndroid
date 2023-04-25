@@ -19,7 +19,6 @@ import com.google.firebase.ktx.Firebase
 import com.samuelribeiro.mycomponents.CustomToast
 import java.text.NumberFormat
 import java.util.*
-import kotlin.math.roundToInt
 
 class AddEditListShoppingActivity : AppCompatActivity() {
 
@@ -44,57 +43,49 @@ class AddEditListShoppingActivity : AppCompatActivity() {
         addProduct()
     }
 
-    private fun setupAdapterShopping(queryShopping: Query) {
-        shoppingListAdapter = object :
-            ShoppingListAdapter(queryShopping, documentId, { product -> adapterOnClick(product) }) {
-
-            @SuppressLint("SetTextI18n")
-            override fun onDataChanged() {
-                val total: String = getString(R.string.total)
-
-                if (itemCount == 0) {
-                    println("Nothing $documentId")
-                    updateTotalShopping(0.0)
-                    binding.valueTotal.text = "$total: R$0"
-                } else {
-                    val allProducts = getAllSnapshot()
-
-                    var amount = 0.0
-                    for (item in allProducts) {
-                        val itemObject = item.toObject<Product>()
-                        amount += itemObject?.purchaseValue!!
-                    }
-                    binding.recyclerShoppingList.adapter = shoppingListAdapter
-                    val format: NumberFormat = NumberFormat.getCurrencyInstance()
-                    format.maximumFractionDigits = 2
-                    format.setCurrency(Currency.getInstance("BRL")).toString()
-
-                    binding.valueTotal.text = "$total: ${format.format(amount)}"
-
-                    updateTotalShopping(amount)
-                }
-            }
-        }
-    }
-
     private fun addProduct() {
         binding.addProduct.setOnClickListener {
             val valueProduct = binding.valueProduct.text.toString()
             val descriptionText = binding.nameProduct.text.toString()
             val amountText = binding.valueAmount.text.toString()
-
-            if (valueProduct.isBlank() || descriptionText.isBlank()) {
-                CustomToast.warning(this, getString(R.string.fill_in_all_fields))
-                return@setOnClickListener
-            }
-
             val amount = Utils.validAmount(amountText)
 
-            addProduct(valueProduct.toDouble(), descriptionText, amount)
-            // TODO: Samuel testando o componente
-            // val dialog = AddEditListShoppingDialogFragment()
-            // dialog.show(supportFragmentManager, dialog.tag)
+            setupDialog(valueProduct, descriptionText, amount)
         }
+    }
+
+    private fun setupDialog(
+        valueProduct: String,
+        descriptionText: String,
+        amountText: Int
+    ) {
+        when (validateEmptyFields(
+            valueProduct,
+            descriptionText
+        )) {
+            true -> {
+                CustomToast.warning(this, getString(R.string.fill_in_all_fields))
+            }
+            false -> {
+                showDialog(descriptionText, valueProduct, amountText)
+            }
+        }
+    }
+
+    private fun showDialog(descriptionText: String, valueProduct: String, productAmount: Int) {
+        val dialog = AddEditListShoppingDialogFragment()
+        dialog.receiveData(descriptionText, valueProduct, productAmount)
+        dialog.show(supportFragmentManager, dialog.tag)
+    }
+
+    private fun validateEmptyFields(
+        valueProduct: String,
+        descriptionText: String
+    ): Boolean {
+        if (valueProduct.isBlank() || descriptionText.isBlank()) {
+            return true
+        }
+        return false
     }
 
     private fun queryShoppingFromFirebase(): Query {
@@ -153,12 +144,19 @@ class AddEditListShoppingActivity : AppCompatActivity() {
                     .collection("products")
                     .document(productCurrent.documentId.toString())
                     .update(
-                        "description", editTextDescription.text.toString(),
-                        "value", editTextValue.text.toString().toDouble(), "amount", amount, "purchaseValue", purchaseValue )
+                        "description",
+                        editTextDescription.text.toString(),
+                        "value",
+                        editTextValue.text.toString().toDouble(),
+                        "amount",
+                        amount,
+                        "purchaseValue",
+                        purchaseValue
+                    )
                     .addOnSuccessListener {
-                        Log.d(TAG,":)")
-                        CustomToast.success( this, getString(R.string.registered_successfully) )
-                    }.addOnFailureListener { e ->  Log.d(TAG,":( :: $e") }
+                        Log.d(TAG, ":)")
+                        CustomToast.success(this, getString(R.string.registered_successfully))
+                    }.addOnFailureListener { e -> Log.d(TAG, ":( :: $e") }
             } else {
                 CustomToast.warning(this, getString(R.string.fill_in_all_fields))
             }
@@ -171,6 +169,39 @@ class AddEditListShoppingActivity : AppCompatActivity() {
         builder.show()
     }
 
+    private fun setupAdapterShopping(queryShopping: Query) {
+        shoppingListAdapter = object :
+            ShoppingListAdapter(queryShopping, documentId, { product -> adapterOnClick(product) }) {
+
+            @SuppressLint("SetTextI18n")
+            override fun onDataChanged() {
+                val total: String = getString(R.string.total)
+
+                if (itemCount == 0) {
+                    println("Nothing $documentId")
+                    updateTotalShopping(0.0)
+                    binding.valueTotal.text = "$total: R$0"
+                } else {
+                    val allProducts = getAllSnapshot()
+
+                    var amount = 0.0
+                    for (item in allProducts) {
+                        val itemObject = item.toObject<Product>()
+                        amount += itemObject?.purchaseValue!!
+                    }
+                    binding.recyclerShoppingList.adapter = shoppingListAdapter
+                    val format: NumberFormat = NumberFormat.getCurrencyInstance()
+                    format.maximumFractionDigits = 2
+                    format.setCurrency(Currency.getInstance("BRL")).toString()
+
+                    binding.valueTotal.text = "$total: ${format.format(amount)}"
+
+                    updateTotalShopping(amount)
+                }
+            }
+        }
+    }
+
     @SuppressLint("LongLogTag")
     private fun updateTotalShopping(value: Double) {
         val total = Utils.rounding(value)
@@ -181,39 +212,9 @@ class AddEditListShoppingActivity : AppCompatActivity() {
             .document(documentId)
             .update("total", total)
             .addOnSuccessListener {
-                Log.d(TAG,":)")
+                Log.d(TAG, ":)")
             }.addOnFailureListener { e -> Log.d(TAG, ":( :: $e") }
 
-    }
-
-    @SuppressLint("LongLogTag")
-    private fun addProduct(value: Double, description: String, amount: Int) {
-
-        val purchaseValue = Utils.calcPurchaseValue(amount, value)
-
-        val product = hashMapOf(
-            "description" to description,
-            "value" to value,
-            "amount" to amount,
-            "purchaseValue" to purchaseValue
-        )
-
-        Firebase.firestore
-            .collection("shopping")
-            .document(documentId)
-            .collection("products")
-            .add(product)
-            .addOnSuccessListener { documentReference ->
-                CustomToast.success(this, getString(R.string.registered_successfully))
-                binding.valueProduct.setText("")
-                binding.nameProduct.setText("")
-                binding.valueAmount.setText("")
-                binding.nameProduct.requestFocus()
-                Log.d(TAG, "DocumentSnapshot written with ID: ${documentReference.id}")
-            }
-            .addOnFailureListener { e ->
-                Log.e(TAG, "Error adding document", e)
-            }
     }
 
     public override fun onStart() {
