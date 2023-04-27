@@ -50,7 +50,7 @@ class AddEditListShoppingDialogFragment : DialogFragment() {
         super.onViewCreated(view, savedInstanceState)
         setTitle()
         fillInFields()
-        setupButtonPositive(valueCurrent, productCurrent)
+        setupButtonPositive()
         setupButtonNegative()
     }
 
@@ -58,10 +58,14 @@ class AddEditListShoppingDialogFragment : DialogFragment() {
         binding.dialogTest.setOnClickButtonNegative { dismiss() }
     }
 
-    private fun setupButtonPositive(valueCurrent: String, productCurrent: String) {
+    private fun setupButtonPositive() {
         binding.dialogTest.setOnClickButtonPositive {
             dismiss()
-            addProduct(valueCurrent.toDouble(), productCurrent, productAmount)
+            addProduct(
+                binding.dialogTest.getTextSecondField().toDouble(),
+                binding.dialogTest.getTextFirstField(),
+                productAmount
+            )
             CustomToast.success(requireActivity(), getString(R.string.registered_successfully))
         }
     }
@@ -91,9 +95,7 @@ class AddEditListShoppingDialogFragment : DialogFragment() {
             .collection("products")
             .add(product)
             .addOnSuccessListener {}
-            .addOnFailureListener { e ->
-                CustomToast.error(requireActivity(), "Error")
-            }
+            .addOnFailureListener {}
     }
 
     fun receiveData(productName: String, productValue: String, productAmount: Int) {
