@@ -1,11 +1,12 @@
 package br.com.conclusaoandroid
 
 import android.annotation.SuppressLint
-import android.app.AlertDialog
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.widget.EditText
+import android.view.View
+import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import br.com.conclusaoandroid.adapter.ShoppingListAdapter
@@ -43,132 +44,6 @@ class AddEditListShoppingActivity : AppCompatActivity() {
         addProduct()
     }
 
-    private fun addProduct() {
-        binding.addProduct.setOnClickListener {
-            val valueProduct = binding.valueProduct.text.toString()
-            val descriptionText = binding.nameProduct.text.toString()
-            val amountText = binding.valueAmount.text.toString()
-            val amount = Utils.validAmount(amountText)
-
-            setupDialog(valueProduct, descriptionText, amount)
-        }
-    }
-
-    private fun setupDialog(
-        valueProduct: String,
-        descriptionText: String,
-        amountText: Int
-    ) {
-        when (validateEmptyFields(
-            valueProduct,
-            descriptionText
-        )) {
-            true -> {
-                CustomToast.warning(this, getString(R.string.fill_in_all_fields))
-            }
-            false -> {
-                showDialog(descriptionText, valueProduct, amountText)
-            }
-        }
-    }
-
-    private fun showDialog(descriptionText: String, valueProduct: String, productAmount: Int) {
-        val dialog = AddEditListShoppingDialogFragment()
-        dialog.receiveData(descriptionText, valueProduct, productAmount)
-        dialog.show(supportFragmentManager, dialog.tag)
-    }
-
-    private fun validateEmptyFields(
-        valueProduct: String,
-        descriptionText: String
-    ): Boolean {
-        if (valueProduct.isBlank() || descriptionText.isBlank()) {
-            return true
-        }
-        return false
-    }
-
-    private fun queryShoppingFromFirebase(): Query {
-        return Firebase.firestore
-            .collection("shopping")
-            .document(documentId)
-            .collection("products")
-            .orderBy("description", Query.Direction.ASCENDING)
-            .limit(300)
-    }
-
-    private fun getValuesFromBundle() {
-        val bundle: Bundle? = intent.extras
-        documentId = bundle?.getString("documentId").toString()
-        marketplace = bundle?.getString("marketPlace").toString()
-        marketDate = bundle?.getString("marketDate").toString()
-    }
-
-    private fun setupToolbar() {
-        binding.toolbar.getTitleSetup("$marketplace $marketDate")
-        binding.toolbar.actionToBack { goToBackHome() }
-    }
-
-    private fun goToBackHome() {
-        val intent = Intent(this, MainActivity::class.java)
-        startActivity(intent)
-        finish()
-    }
-
-    @SuppressLint("LongLogTag")
-    private fun adapterOnClick(productCurrent: Product) {
-        val builder = AlertDialog.Builder(this)
-        val inflater = layoutInflater
-
-        val dialogLayout = inflater.inflate(R.layout.alert_update_items, null)
-        val editTextDescription = dialogLayout.findViewById<EditText>(R.id.editTextDescription)
-        val editTextValue = dialogLayout.findViewById<EditText>(R.id.editTextValue)
-        val editTextAmount = dialogLayout.findViewById<EditText>(R.id.editTextValueAmount)
-        builder.setTitle(getString(R.string.update_register))
-        editTextDescription.setText(productCurrent.description)
-        editTextValue.setText(productCurrent.value.toString())
-        editTextAmount.setText(productCurrent.amount.toString())
-
-        builder.setView(dialogLayout)
-        builder.setPositiveButton(getString(R.string.edit)) { _, _ ->
-            if (editTextDescription.text.isNotBlank() && editTextValue.text.isNotBlank() && editTextAmount.text.isNotBlank()) {
-
-                val textAmount = editTextAmount.text.toString()
-                val value = editTextValue.text.toString()
-                val amount = Utils.validAmount(textAmount)
-                val purchaseValue = Utils.calcPurchaseValue(amount, value.toDouble())
-
-                Firebase.firestore
-                    .collection("shopping")
-                    .document(documentId)
-                    .collection("products")
-                    .document(productCurrent.documentId.toString())
-                    .update(
-                        "description",
-                        editTextDescription.text.toString(),
-                        "value",
-                        editTextValue.text.toString().toDouble(),
-                        "amount",
-                        amount,
-                        "purchaseValue",
-                        purchaseValue
-                    )
-                    .addOnSuccessListener {
-                        Log.d(TAG, ":)")
-                        CustomToast.success(this, getString(R.string.registered_successfully))
-                    }.addOnFailureListener { e -> Log.d(TAG, ":( :: $e") }
-            } else {
-                CustomToast.warning(this, getString(R.string.fill_in_all_fields))
-            }
-        }
-
-        builder.setNegativeButton(getString(R.string.cancel)) { dialog, _ ->
-            dialog.cancel()
-        }
-
-        builder.show()
-    }
-
     private fun setupAdapterShopping(queryShopping: Query) {
         shoppingListAdapter = object :
             ShoppingListAdapter(queryShopping, documentId, { product -> adapterOnClick(product) }) {
@@ -202,6 +77,61 @@ class AddEditListShoppingActivity : AppCompatActivity() {
         }
     }
 
+    private fun addProduct() {
+        binding.addProduct.setOnClickListener {
+            val valueProduct = binding.valueProduct.text.toString()
+            val descriptionText = binding.nameProduct.text.toString()
+            val amountText = binding.valueAmount.text.toString()
+
+            if (valueProduct.isBlank() || descriptionText.isBlank()) {
+                CustomToast.warning(this, getString(R.string.fill_in_all_fields))
+                return@setOnClickListener
+            }
+
+            val amount = Utils.validAmount(amountText)
+
+            addProduct(valueProduct.toDouble(), descriptionText, amount)
+        }
+    }
+
+    private fun queryShoppingFromFirebase(): Query {
+        return Firebase.firestore
+            .collection("shopping")
+            .document(documentId)
+            .collection("products")
+            .orderBy("description", Query.Direction.ASCENDING)
+            .limit(300)
+    }
+
+    private fun getValuesFromBundle() {
+        val bundle: Bundle? = intent.extras
+        documentId = bundle?.getString("documentId").toString()
+        marketplace = bundle?.getString("marketPlace").toString()
+        marketDate = bundle?.getString("marketDate").toString()
+    }
+
+    private fun setupToolbar() {
+        binding.toolbar.getTitleSetup("$marketplace $marketDate")
+        binding.toolbar.actionToBack { goToBackHome() }
+    }
+
+    private fun goToBackHome() {
+        val intent = Intent(this, MainActivity::class.java)
+        startActivity(intent)
+        finish()
+    }
+
+    private fun adapterOnClick(productCurrent: Product) {
+        val dialog = AddEditListShoppingDialogFragment()
+        dialog.receiveData(
+            productCurrent.description,
+            productCurrent.value.toString(),
+            productCurrent.amount,
+            productCurrent
+        )
+        dialog.show(supportFragmentManager, dialog.tag)
+    }
+
     @SuppressLint("LongLogTag")
     private fun updateTotalShopping(value: Double) {
         val total = Utils.rounding(value)
@@ -215,6 +145,46 @@ class AddEditListShoppingActivity : AppCompatActivity() {
                 Log.d(TAG, ":)")
             }.addOnFailureListener { e -> Log.d(TAG, ":( :: $e") }
 
+    }
+
+    @SuppressLint("LongLogTag")
+    private fun addProduct(value: Double, description: String, amount: Int) {
+
+        val purchaseValue = Utils.calcPurchaseValue(amount, value)
+
+        val product = hashMapOf(
+            "description" to description,
+            "value" to value,
+            "amount" to amount,
+            "purchaseValue" to purchaseValue
+        )
+
+        Firebase.firestore
+            .collection("shopping")
+            .document(documentId)
+            .collection("products")
+            .add(product)
+            .addOnSuccessListener { documentReference ->
+                CustomToast.success(this, getString(R.string.registered_successfully))
+                binding.valueProduct.setText("")
+                binding.nameProduct.setText("")
+                binding.valueAmount.setText("")
+                binding.recyclerShoppingList.requestFocus()
+                hideKeyboard(this)
+                Log.d(TAG, "DocumentSnapshot written with ID: ${documentReference.id}")
+            }
+            .addOnFailureListener { e ->
+                Log.e(TAG, "Error adding document", e)
+            }
+    }
+
+    private fun hideKeyboard(activity: Activity) {
+        val imm = activity.getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+        var view: View? = activity.currentFocus
+        if (view == null) {
+            view = View(activity)
+        }
+        imm.hideSoftInputFromWindow(view.windowToken, 0)
     }
 
     public override fun onStart() {

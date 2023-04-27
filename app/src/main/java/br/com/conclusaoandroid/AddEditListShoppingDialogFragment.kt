@@ -1,11 +1,14 @@
 package br.com.conclusaoandroid
 
 import android.os.Bundle
-import android.util.Log
-import android.view.*
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.view.WindowManager
 import androidx.fragment.app.DialogFragment
 import br.com.conclusaoandroid.common.Utils
 import br.com.conclusaoandroid.databinding.DialogfragmentAddEditListShoppingBinding
+import br.com.conclusaoandroid.model.Product
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.samuelribeiro.mycomponents.CustomToast
@@ -13,13 +16,14 @@ import com.samuelribeiro.mycomponents.CustomToast
 class AddEditListShoppingDialogFragment : DialogFragment() {
 
     private lateinit var binding: DialogfragmentAddEditListShoppingBinding
+    private lateinit var productName: String
+    private lateinit var productValue: String
+    private lateinit var productCurrent: Product
+    private var productAmount: Int? = 0
     private val documentId by lazy {
         val bundle = requireActivity().intent.extras
         bundle?.getString("documentId").toString()
     }
-    private lateinit var productName: String
-    private lateinit var productValue: String
-    private var productAmount: Int = 0
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -40,44 +44,66 @@ class AddEditListShoppingDialogFragment : DialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setTitle()
+        fillInFields()
+        setupButtonPositive()
+        setupButtonNegative()
+    }
 
-        binding.dialogTest.setTitleDialog(getString(R.string.add_product))
-        binding.dialogTest.setTextFirstField(productName)
-        binding.dialogTest.setTextSecondField(productValue)
-        binding.dialogTest.setOnClickButtonPositive {
-            dismiss()
-            addProduct(productValue.toDouble(), productName, productAmount)
-            CustomToast.success(requireActivity(), getString(R.string.registered_successfully))
-        }
+    private fun setupButtonNegative() {
         binding.dialogTest.setOnClickButtonNegative { dismiss() }
     }
 
-    private fun addProduct(value: Double, description: String, amount: Int) {
+    private fun setupButtonPositive() {
+        binding.dialogTest.setOnClickButtonPositive {
+            dismiss()
+            editProduct(
+                binding.dialogTest.getTextFirstField(),
+                binding.dialogTest.getTextSecondField().toDouble(),
+                binding.dialogTest.getTextThirdField().toInt()
+            )
+            CustomToast.success(requireActivity(), getString(R.string.successfully_edited))
+        }
+    }
+
+    private fun setTitle() {
+        binding.dialogTest.setTitleDialog(getString(R.string.edit))
+    }
+
+    private fun fillInFields() {
+        binding.dialogTest.setTextFirstField(productName)
+        binding.dialogTest.setTextSecondField(productValue)
+        binding.dialogTest.setTextThirdField(productAmount.toString())
+    }
+
+    private fun editProduct(description: String, value: Double, amount: Int) {
 
         val purchaseValue = Utils.calcPurchaseValue(amount, value)
-
-        val product = hashMapOf(
-            "description" to description,
-            "value" to value,
-            "amount" to amount,
-            "purchaseValue" to purchaseValue
-        )
 
         Firebase.firestore
             .collection("shopping")
             .document(documentId)
             .collection("products")
-            .add(product)
+            .document(productCurrent.documentId.toString())
+            .update(
+                "description", description,
+                "purchaseValue", purchaseValue,
+                "value", value,
+                "amount", amount,
+            )
             .addOnSuccessListener {}
-            .addOnFailureListener { e ->
-                CustomToast.error(requireActivity(), "Error")
-            }
+            .addOnFailureListener {}
     }
 
-    fun receiveData(productName: String, productValue: String, productAmount: Int) {
-        this.productName = productName
+    fun receiveData(
+        productName: String?,
+        productValue: String,
+        productAmount: Int?,
+        productCurrent: Product
+    ) {
+        this.productName = productName.toString()
         this.productValue = productValue
         this.productAmount = productAmount
+        this.productCurrent = productCurrent
     }
-
 }

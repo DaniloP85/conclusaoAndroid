@@ -5,7 +5,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:editTextHintFirstField="@string/title"
-    app:editTextHintSecondField="@string/title"
-    app:nameNegativeButton="@string/cancel"
-    app:namePositiveButton="@string/add_new"/>
+    app:editTextHintFirstField="@string/product_name"
+    app:editTextHintSecondField="@string/product_value"
+    app:editTextHintThirdField="@string/quantity"
+    app:namePositiveButton="@string/edit"
+    app:nameNegativeButton="@string/cancel" />
