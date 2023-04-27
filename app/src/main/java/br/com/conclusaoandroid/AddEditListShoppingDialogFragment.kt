@@ -18,12 +18,6 @@ class AddEditListShoppingDialogFragment : DialogFragment() {
     private lateinit var productName: String
     private lateinit var productValue: String
     private var productAmount: Int = 0
-    private val productCurrent by lazy {
-        binding.dialogTest.getTextFirstField()
-    }
-    private val valueCurrent by lazy {
-        binding.dialogTest.getTextSecondField()
-    }
     private val documentId by lazy {
         val bundle = requireActivity().intent.extras
         bundle?.getString("documentId").toString()
