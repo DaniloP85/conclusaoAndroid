@@ -7,6 +7,7 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
+        android:name=".Application"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -18,10 +19,10 @@
         tools:replace="android:theme"
         tools:targetApi="31">
         <activity
-            android:name=".AddEditListShoppingActivity"
+            android:name=".ui.shopping.AddEditListShoppingActivity"
             android:exported="true" />
         <activity
-            android:name=".Splash"
+            android:name=".ui.Splash"
             android:exported="true"
             android:theme="@style/Theme.Material3.Light.NoActionBar">
             <intent-filter>
@@ -34,7 +35,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".Register"
+            android:name=".ui.Register"
             android:exported="false"
             android:theme="@style/Theme.Material3.Light.NoActionBar">
             <meta-data
@@ -42,7 +43,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".Login"
+            android:name=".ui.login.Login"
             android:exported="true"
             android:theme="@style/Theme.Material3.Light.NoActionBar">
             <meta-data
@@ -50,7 +51,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".MainActivity"
+            android:name=".ui.MainActivity"
             android:exported="true"
             android:theme="@style/Theme.Material3.Light.NoActionBar" />
     </application>

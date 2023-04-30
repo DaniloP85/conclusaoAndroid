@@ -1,4 +1,4 @@
-package br.com.conclusaoandroid.adapter
+package br.com.conclusaoandroid.ui.adapter
 
 import android.util.Log
 import androidx.recyclerview.widget.RecyclerView

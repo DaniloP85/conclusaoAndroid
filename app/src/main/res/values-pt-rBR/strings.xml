@@ -22,6 +22,7 @@
     <string name="update_register">Atualizar Cadastro</string>
     <string name="cancel">Cancelar</string>
     <string name="registered_successfully">Registrado com sucesso :)</string>
+    <string name="successfully_edited">Editado com sucesso :)</string>
     <string name="market_name">Nome de mercado</string>
     <string name="enter_market_name">Digite o nome do mercado</string>
     <string name="fill_in_all_fields">Preencha todos os campos</string>

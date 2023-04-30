@@ -1,4 +1,4 @@
-package br.com.conclusaoandroid.model
+package br.com.conclusaoandroid.domain.model
 
 import com.google.firebase.Timestamp
 import com.google.firebase.firestore.IgnoreExtraProperties

@@ -1,21 +1,25 @@
-package br.com.conclusaoandroid
+package br.com.conclusaoandroid.ui
 
-import android.content.ContentValues.TAG
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.Observer
+import br.com.conclusaoandroid.R
 import br.com.conclusaoandroid.common.Utils
 import br.com.conclusaoandroid.databinding.ActivityRegisterBinding
-import com.google.firebase.auth.FirebaseAuth
+import br.com.conclusaoandroid.ui.login.Login
+import br.com.conclusaoandroid.ui.login.LoginViewModel
 import com.samuelribeiro.mycomponents.CustomToast
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class Register : AppCompatActivity() {
+
+    private val viewModel: LoginViewModel by viewModel()
+
     private lateinit var binding: ActivityRegisterBinding
 
-    private lateinit var auth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,9 +30,9 @@ class Register : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
 
-        auth = FirebaseAuth.getInstance()
 
         setUpListener()
+        observer()
     }
 
     private fun setUpListener() {
@@ -49,27 +53,24 @@ class Register : AppCompatActivity() {
                 return@setOnClickListener
             }
 
-            auth.createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener(this) { task ->
-                    binding.progressBarRegister.visibility = View.GONE
-
-                    if (task.isSuccessful) {
-                        // Sign in success, update UI with the signed-in user's information
-                        Log.d(TAG, "createUserWithEmail:success")
-                        CustomToast.success( this, getString(R.string.account_created) )
-                        startLoginPage()
-                    } else {
-                        binding.progressBarRegister.visibility = View.GONE
-                        // If sign in fails, display a message to the user.
-                        Log.w(TAG, "createUserWithEmail:failure", task.exception)
-                        CustomToast.error(this, getString(R.string.account_created_error))
-                    }
-                }
+            viewModel.registerFirebase(email, password)
         }
 
         binding.loginNow.setOnClickListener {
             startLoginPage()
         }
+    }
+
+    private fun observer() {
+        viewModel.registerStatus.observe(this, Observer {
+            binding.progressBarRegister.visibility = View.GONE
+            if (it) {
+                CustomToast.success( this, getString(R.string.account_created) )
+                startLoginPage()
+            } else {
+                CustomToast.error(this, getString(R.string.account_created_error))
+            }
+        })
     }
 
     private fun startLoginPage() {

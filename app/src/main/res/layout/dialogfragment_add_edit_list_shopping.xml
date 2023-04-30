@@ -8,4 +8,4 @@
     app:editTextHintFirstField="@string/title"
     app:editTextHintSecondField="@string/title"
     app:nameNegativeButton="@string/cancel"
-    app:namePositiveButton="@string/add_new"/>
+    app:namePositiveButton="@string/edit"/>

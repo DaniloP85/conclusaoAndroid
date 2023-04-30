@@ -1,4 +1,4 @@
-package br.com.conclusaoandroid
+package br.com.conclusaoandroid.ui
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -6,6 +6,8 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import androidx.core.content.ContextCompat
+import br.com.conclusaoandroid.R
+import br.com.conclusaoandroid.ui.login.Login
 import com.google.firebase.auth.FirebaseAuth
 
 class Splash : AppCompatActivity() {

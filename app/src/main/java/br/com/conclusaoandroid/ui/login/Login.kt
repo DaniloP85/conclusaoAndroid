@@ -1,21 +1,25 @@
-package br.com.conclusaoandroid
+package br.com.conclusaoandroid.ui.login
 
-import android.content.ContentValues.TAG
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.Observer
+import br.com.conclusaoandroid.R
 import br.com.conclusaoandroid.common.Utils
 import br.com.conclusaoandroid.databinding.ActivityLoginBinding
-import com.google.firebase.auth.FirebaseAuth
+import br.com.conclusaoandroid.ui.MainActivity
+import br.com.conclusaoandroid.ui.Register
 import com.samuelribeiro.mycomponents.CustomToast
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class Login : AppCompatActivity() {
+
+    private val viewModel: LoginViewModel by viewModel()
+
     private lateinit var binding: ActivityLoginBinding
 
-    private lateinit var auth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,18 +30,8 @@ class Login : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
 
-        auth = FirebaseAuth.getInstance()
-
         setUpListener()
-    }
-
-    public override fun onStart() {
-        super.onStart()
-        // Check if user is signed in (non-null) and update UI accordingly.
-        val currentUser = auth.currentUser
-        if(currentUser != null){
-            startMainPage()
-        }
+        observer()
     }
 
     private fun setUpListener() {
@@ -54,31 +48,30 @@ class Login : AppCompatActivity() {
 
             if (email.isEmpty() || password.isEmpty()) {
                 binding.progressBarLogin.visibility = View.GONE
-                CustomToast.warning( this, getString(R.string.login_validate_fields) )
+                CustomToast.warning(this, getString(R.string.login_validate_fields))
                 return@setOnClickListener
             }
 
-            if(!Utils.emailValidator(email)) {
+            if (!Utils.emailValidator(email)) {
                 binding.progressBarLogin.visibility = View.GONE
-                CustomToast.error( this, getString(R.string.email_validate) )
+                CustomToast.error(this, getString(R.string.email_validate))
                 return@setOnClickListener
             }
 
-            auth.signInWithEmailAndPassword(email, password).addOnCompleteListener(this) { task ->
-                if (task.isSuccessful) {
-                    // Sign in success, update UI with the signed-in user's information
-                    Log.d(TAG, "signInWithEmail:success")
-                    CustomToast.success( this, "Successful Authentication :)" )
-                    startMainPage()
-
-                } else {
-                    binding.progressBarLogin.visibility = View.GONE
-                    // If sign in fails, display a message to the user.
-                    Log.w(TAG, "signInWithEmail:failure", task.exception)
-                    CustomToast.error(this, "Authentication failed :(")
-                }
-            }
+            viewModel.loginFirebase(email, password)
         }
+    }
+
+    private fun observer() {
+        viewModel.loginStatus.observe(this, Observer {
+            binding.progressBarLogin.visibility = View.GONE
+            if (it) {
+                CustomToast.success(this, "Successful Authentication :)")
+                startMainPage()
+            } else {
+                CustomToast.error(this, "Authentication failed :(")
+            }
+        })
     }
 
     private fun startMainPage() {
