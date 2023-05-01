@@ -41,9 +41,9 @@ Certifique-se de que seu dispositivo tenha a versão Android >= 21.
 
 ![.](readme/android.gif)
 
-## Próxima funcionalidades
+## Próximas funcionalidades
 
-Implementar um botão para leitura de código de barras, utilizando a câmera  do dispositivo, após pegar o código de barras
+- Implementar um botão para leitura de código de barras, utilizando a câmera  do dispositivo, após pegar o código de barras
 podemos utiliziar a API do [GS1](https://www.gs1br.org/) para recuperar a descrição do produto.
 
-Implementar o [Swipe](https://developer.android.com/guide/navigation/navigation-swipe-view?hl=pt-br) para deletar os itens da listas compras e produtos.
+- Implementar o [Swipe](https://developer.android.com/guide/navigation/navigation-swipe-view?hl=pt-br) para deletar os itens da listas compras e produtos.
