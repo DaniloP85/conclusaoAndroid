@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".AddEditListShoppingActivity">
+    tools:context=".ui.shopping.AddEditListShoppingActivity">
 
     <com.samuelribeiro.mycomponents.CustomToolbar
         android:id="@+id/toolbar"
@@ -64,7 +64,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/quantity"
-                    android:inputType="numberDecimal" />
+                    android:inputType="numberDecimal"
+                    android:layout_marginLeft="5dp"/>
 
             </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>

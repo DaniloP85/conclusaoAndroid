@@ -1,5 +1,6 @@
 package br.com.conclusaoandroid
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,7 +9,7 @@ import android.view.WindowManager
 import androidx.fragment.app.DialogFragment
 import br.com.conclusaoandroid.common.Utils
 import br.com.conclusaoandroid.databinding.DialogfragmentAddEditListShoppingBinding
-import br.com.conclusaoandroid.model.Product
+import br.com.conclusaoandroid.domain.model.Product
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.samuelribeiro.mycomponents.CustomToast
@@ -32,6 +33,8 @@ class AddEditListShoppingDialogFragment : DialogFragment() {
     ): View {
         binding = DialogfragmentAddEditListShoppingBinding.inflate(inflater)
         return binding.root
+
+
     }
 
     override fun onStart() {

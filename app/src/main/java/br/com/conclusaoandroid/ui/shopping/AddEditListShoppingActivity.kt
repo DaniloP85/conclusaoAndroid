@@ -1,4 +1,4 @@
-package br.com.conclusaoandroid
+package br.com.conclusaoandroid.ui.shopping
 
 import android.annotation.SuppressLint
 import android.app.Activity
@@ -9,10 +9,13 @@ import android.view.View
 import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import br.com.conclusaoandroid.adapter.ShoppingListAdapter
+import br.com.conclusaoandroid.AddEditListShoppingDialogFragment
+import br.com.conclusaoandroid.R
 import br.com.conclusaoandroid.common.Utils
 import br.com.conclusaoandroid.databinding.ActivityAddEditListShoppingBinding
-import br.com.conclusaoandroid.model.Product
+import br.com.conclusaoandroid.domain.model.Product
+import br.com.conclusaoandroid.ui.MainActivity
+import br.com.conclusaoandroid.ui.adapter.ShoppingListAdapter
 import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject

@@ -1,4 +1,4 @@
-package br.com.conclusaoandroid.adapter
+package br.com.conclusaoandroid.ui.adapter
 
 import android.annotation.SuppressLint
 import android.util.Log
@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import br.com.conclusaoandroid.databinding.ShoppingItemBinding
-import br.com.conclusaoandroid.model.Shopping
+import br.com.conclusaoandroid.domain.model.Shopping
 import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
